@@ -24,18 +24,38 @@ The length of each pairs[i] will be 2.
 The length of each words[i] and pairs[i][j] will be in the range [1, 20].
 */
 
+
+// map
 class Solution {
     public boolean areSentencesSimilar(String[] words1, String[] words2, String[][] pairs) {
         if(words1.length != words2.length) return false;
-        Set<String> set = new HashSet<>();
+        Map<String, Set<String>> map = new HashMap<>();
         for(String[] s: pairs){
-            set.add(s[0]+"+"+s[1]);
+            if(!map.containsKey(s[0])){
+                map.put(s[0], new HashSet<String>());
+            }
+            if(!map.containsKey(s[1])){
+                map.put(s[1], new HashSet<String>());
+            }
+            map.get(s[0]).add(s[1]);
+            map.get(s[1]).add(s[0]);
         }
         for(int i = 0; i < words1.length; i++){
             if(words1[i].equals(words2[i])) continue;
-            if(!set.contains(words1[i]+"+"+words2[i]) && !set.contains(words2[i]+"+"+words1[i]))
+            if(!map.containsKey(words1[i]) || !map.containsKey(words2[i]) 
+               || !map.get(words1[i]).contains(words2[i])
+               || !map.get(words2[i]).contains(words1[i]))
                 return false;
         }
+
+        //or
+        // for(int i = 0; i < words1.length; i++){
+        //     if(words1[i].equals(words2[i])) continue;
+        //     if(!map.containsKey(words1[i])  
+        //        || !map.get(words1[i]).contains(words2[i]))
+        //         return false;
+        // }
+        
         return true;
     }
 }

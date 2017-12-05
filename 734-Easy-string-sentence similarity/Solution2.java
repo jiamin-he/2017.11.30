@@ -24,18 +24,29 @@ The length of each pairs[i] will be 2.
 The length of each words[i] and pairs[i][j] will be in the range [1, 20].
 */
 
+
+// brute-force 但是竟然很快？？？最快？？？ 99%？？？？
 class Solution {
     public boolean areSentencesSimilar(String[] words1, String[] words2, String[][] pairs) {
-        if(words1.length != words2.length) return false;
-        Set<String> set = new HashSet<>();
-        for(String[] s: pairs){
-            set.add(s[0]+"+"+s[1]);
-        }
-        for(int i = 0; i < words1.length; i++){
-            if(words1[i].equals(words2[i])) continue;
-            if(!set.contains(words1[i]+"+"+words2[i]) && !set.contains(words2[i]+"+"+words1[i]))
+        if (words1.length != words2.length) return false;
+        for (int i = 0; i < words1.length; i++) {
+            if (!similar(words1[i], words2[i], pairs)) {
                 return false;
+            }
         }
         return true;
+    }
+    
+    private boolean similar(String s1, String s2, String[][] pairs) {
+        if (s1.equals(s2)) return true;
+        for (String[] pair : pairs) {
+            if (pair[0].equals(s1) && pair[1].equals(s2)) {
+                return true;
+            }
+            if (pair[0].equals(s2) && pair[1].equals(s1)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
