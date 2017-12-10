@@ -121,4 +121,66 @@ when you are converting, it's always from 0 and not include the base!
 
 
 
+# DP
+
+## Colors & adjacent
+
+### 3 colors, no adjacent, min cost
+
+#### 256 paint house
+
+n house, 3 colors, not adjacent, minimize tht total costs
+
+##### Flash:
+
+2D matrix, dp[i]\[0] (the second matrix refers to the color)
+
+### k colors, 2 adjacent, ways
+
+#### 276 paint fence
+
+a fence with n posts, k colors, no more than two adjacent, how many ways you can paint?
+
+##### Flash:
+
+1D matrix, same or different color
+
+—> 1D matrix can be simplified to constant place!
+
+—> simplify (coz from the equation we can know what variables we should store. we only need two previous values!)
+
+### k colors, no adjacent, min cost
+
+#### 265 paint house II 
+
+n house, k colors, no adjacent, minimize total costs
+
+##### Flash:
+
+- similar to 256, should use 2D dp
+- but how to simplify? from O(nk^2) to O(nk) ? (we need to compare to each other color so that comes K^2).
+- but actually you don't need to compare too many times! you just find the previous house's min1 and min2. (min2 is used for when we cannot use min1). Use min1 + other colors' cost in current house and that's it!
+
+
+
+# Combinations
+
+
+
+# BFS / DFS
+
+
+
+
+
+# Trap
+
+## String
+
+#### 161 one edit distance
+
+- when equals, should return false!!!
+
+
+
 大厂喜欢玩算法和oop，小厂喜欢问基础知识，网上自行准备java面试经典50问
