@@ -1,17 +1,16 @@
 /*
  Author:     Jiamin, hejiamin1995@gmail.com
  Date:       Sep 19, 2017
- Problem:    swap nodes in pairs
+ Problem:    merge two sorted lists
  Difficulty: Easy
  Notes:
 
-GGiven a linked list, swap every two adjacent nodes and return its head.
+Merge two sorted linked lists and return it as a new list. The new list should be made by splicing together the nodes of the first two lists.
 
-For example,
-Given 1->2->3->4, you should return the list as 2->1->4->3.
+Example:
 
-Your algorithm should use only constant space. You may not modify the values in the list, only nodes itself can be changed.
-
+Input: 1->2->4, 1->3->4
+Output: 1->1->2->3->4->4
 
 */
 

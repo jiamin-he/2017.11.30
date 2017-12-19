@@ -94,11 +94,7 @@ class Solution1 {
         }
 
         head = head.next;
-
-
       }
-
-
       return false;
     }
 
