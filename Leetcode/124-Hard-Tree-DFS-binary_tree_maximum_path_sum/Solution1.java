@@ -18,13 +18,28 @@ Return 6.
 
 */
 
+// 记得 l 和 r 要加一句 math max 跟0cp
+// 如果返回来的是个负数 咱就不要他了 从0起
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
 class Solution {
-    public int sumNumbers(TreeNode root) {
-        return sumNumber(root, 0);
+    public int maxPathSum(TreeNode root) {
+        int[] res = new int[1];
+        res[0] = Integer.MIN_VALUE;
+        maxSum(root, res);
+        return res[0];
     }
-    public int sumNumber ( TreeNode root, int res) {
+    public int maxSum(TreeNode root, int[] res) {
         if(root == null) return 0;
-        if(root.left == null && root.right == null) return root.val + res*10;
-        return sumNumber(root.left, res*10 + root.val) + sumNumber(root.right, res*10+root.val);
+        int l = Math.max(0,maxSum(root.left,res)), r = Math.max(0,maxSum(root.right,res));
+        res[0] = Math.max(res[0], l + r + root.val );
+        return Math.max(l,r) + root.val;
     }
 }

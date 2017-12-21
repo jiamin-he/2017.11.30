@@ -129,3 +129,22 @@ for(Map.Entry<Integer,Integer> entry : res.entrySet()){
 ```
 
 - 554
+
+#### 实现stack
+
+不要用stack 是个古老的类 用deque来实现吧
+
+```
+Deque<TreeNode> stack = new ArrayDeque<>();
+stack.push(root);
+TreeNode node = stack.pop();
+```
+
+- 236
+
+#### arraylist/ linkedlist插入值插到前面或特定位置
+
+```
+res.add(0, root.val);
+```
+
