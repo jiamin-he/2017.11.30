@@ -19,6 +19,9 @@ For example, the lowest common ancestor (LCA) of nodes 2 and 8 is 6. Another exa
 
 */
 
+
+// 第i层 共h层 则需要搜索 2^(h-i)次
+// 所以整体 1+2+2^2+...+2^h = 2^(h+1)
 class Solution {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         if(root == null || root == p || root == q) return root;

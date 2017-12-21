@@ -24,17 +24,19 @@ Note: There are at least two nodes in this BST.
 
 */
 
+// inorder traversal, it is a sorted list.
+// time comp O(N), space comp O(1)
+// 15ms 61%
 class Solution {
-    public TreeNode inorderSuccessor(TreeNode root, TreeNode p) {
-        TreeNode succ = null;
-        while(root != null) {
-            if(root.val > p.val) {
-                succ = root;
-                root = root.left;
-            } else {
-                root = root.right;
-            }
-        }
-        return succ;
+    int min = Integer.MAX_VALUE;
+    TreeNode prev = null;
+    public int getMinimumDifference(TreeNode root) {
+        if(root == null) return min;
+        getMinimumDifference(root.left);
+        if(prev != null)
+            min = Math.min(min, root.val - prev.val);
+        prev = root;
+        getMinimumDifference(root.right);
+        return min;
     }
 }
