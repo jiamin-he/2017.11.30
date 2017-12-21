@@ -148,3 +148,12 @@ TreeNode node = stack.pop();
 res.add(0, root.val);
 ```
 
+#### int[] is object
+
+```
+int[] inorderLeft = new int[i],  preorderLeft = new int[i]
+不能写成
+int[] inorderLeft = new int[i], preorderLeft = inorderLeft
+```
+
+不要贪一时方便 这样写 这两个数组怎么改都会变成一样的！
