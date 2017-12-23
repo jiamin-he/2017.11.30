@@ -190,3 +190,18 @@ public class Solution {
 }
 ```
 
+#### StringBuilder reverse
+
+```
+String pair = new StringBuilder(cur.substring(j+1)).reverse().toString();
+```
+
+- 336
+
+#### create string from char[]
+
+```
+char[] sc = s.toCharArray();
+return new String(sc);
+```
+
