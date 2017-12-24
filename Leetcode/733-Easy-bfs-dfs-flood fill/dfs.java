@@ -30,38 +30,20 @@ The value of each color in image[i][j] and newColor will be an integer in [0, 65
 
 */
 
+// 20ms 71%
 class Solution {
     public int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
-        int goal = image[sr][sc];
-        image[sr][sc] = newColor;
-        boolean[][] visited = new boolean[image.length][image[0].length];
-        
-        Queue<int[]> q = new LinkedList<>();
-        int[] center = {sr,sc};
-        q.offer(center);
-        while(!q.isEmpty()){
-            int[] temp = q.poll();
-            int r = temp[0];
-            int c = temp[1];
-            visited[r][c] = true;
-            validate(q,image,r-1,c,visited,newColor,goal);
-            validate(q,image,r,c-1,visited,newColor,goal);
-            validate(q,image,r+1,c,visited,newColor,goal);
-            validate(q,image,r,c+1,visited,newColor,goal);
-        }
-        
+        if(image[sr][sc] == newColor) return image;
+        fill(sr,sc,newColor,image[sr][sc],image);
         return image;
-        
     }
     
-    public void validate(Queue<int[]> q, int[][] image, int row, int column, boolean[][] visited,int newColor,int goal){
-        if( row>=0 && column>=0 && row<=image.length-1 && column<=image[0].length-1
-           && visited[row][column] == false && image[row][column] == goal){
-            int[] t = {row,column};
-            image[row][column] = newColor;
-            visited[row][column] = true;
-            q.offer(t);
-        }
-        return;
+    private void fill(int r, int c, int newColor, int goal, int[][] image ){
+        if(r>= image.length || c>=image[0].length || r<0 || c<0 || image[r][c] != goal) return;
+        image[r][c] = newColor;
+        fill(r+1,c,newColor,goal,image);
+        fill(r-1,c,newColor,goal,image);
+        fill(r,c+1,newColor,goal,image);
+        fill(r,c-1,newColor,goal,image);
     }
 }
