@@ -1,6 +1,6 @@
 /*
  Author:     Jiamin, hejiamin1995@gmail.com
- Date:       Dec 23, 2017
+ Date:       Dec 24, 2017
  Problem:    Flatten Nested List Iterator
  Difficulty: Medium
  Notes:
@@ -39,19 +39,32 @@ By calling next repeatedly until hasNext returns false, the order of elements re
  * }
  */
 public class NestedIterator implements Iterator<Integer> {
+    Deque<NestedInteger> stack = new ArrayDeque<>();
 
     public NestedIterator(List<NestedInteger> nestedList) {
-        
+        for(int i = nestedList.size()-1; i >= 0; i--) {
+            stack.push(nestedList.get(i));
+        }
     }
 
     @Override
     public Integer next() {
-        
+        return stack.pop().getInteger();
     }
 
     @Override
     public boolean hasNext() {
-        
+        while(!stack.isEmpty()) {
+            NestedInteger curr = stack.peek();
+            if(curr.isInteger()) {
+                return true;
+            }
+            stack.pop();
+            for(int i = curr.getList().size()-1; i >= 0; i--) {
+                stack.push(curr.getList().get(i));
+            }
+        }
+        return false;
     }
 }
 

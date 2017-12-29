@@ -24,65 +24,51 @@ Answer: 3
 
 */
 
-
-//dsu
-//12ms 15.45%
+// 11ms 20%
 class Solution {
     public int numIslands(char[][] grid) {
-        if(grid == null || grid.length == 0 || grid[0].length == 0) return 0;
-        int r = grid.length, c = grid[0].length;
-        int count = 0;
-        DSU dsu = new DSU(r*c);
-        for(int i = 0; i < r; i++) {
-            for(int j = 0; j < c; j++) {
-                if(grid[i][j] == '1') {
+        int count=0;
+        for(int i=0;i<grid.length;i++)
+            for(int j=0;j<grid[0].length;j++){
+                if(grid[i][j]=='1'){
+                    bfsFill(grid,i,j);
                     count++;
-                    if(j < c -1 && grid[i][j+1] == '1') {
-                        if(dsu.union(i*c+j, i*c+j+1)) {
-                            count--;
-                        }
-                    }
-                    if(i < r -1 && grid[i+1][j] == '1') {
-                        if(dsu.union(i*c+j, i*c+j+c)) {
-                            count--;
-                        }
-                    }
                 }
             }
-        }
         return count;
     }
-    
-    class DSU {
-        int[] parent;
-        int[] rank;
-        
-        public DSU(int N) {
-            parent = new int[N];
-            rank = new int[N];
-            for (int i = 0; i < N; i++) {
-                parent[i] = i;
+    private void bfsFill(char[][] grid,int x, int y){
+        grid[x][y]='0';
+        int n = grid.length;
+        int m = grid[0].length;
+        LinkedList<Integer> queue = new LinkedList<Integer>();  
+        int code = x*m+y;  
+        queue.offer(code);  
+        while(!queue.isEmpty())  
+        {  
+            code = queue.poll();  
+            int i = code/m;  
+            int j = code%m;  
+            if(i>0 && grid[i-1][j]=='1')    //search upward and mark adjacent '1's as '0'.
+            {  
+                queue.offer((i-1)*m+j);  
+                grid[i-1][j]='0';  
+            }  
+            if(i<n-1 && grid[i+1][j]=='1')  //down
+            {  
+                queue.offer((i+1)*m+j);  
+                grid[i+1][j]='0';  
+            }  
+            if(j>0 && grid[i][j-1]=='1')  //left
+            {  
+                queue.offer(i*m+j-1);  
+                grid[i][j-1]='0';  
+            }  
+            if(j<m-1 && grid[i][j+1]=='1')  //right
+            {  
+                queue.offer(i*m+j+1);  
+                grid[i][j+1]='0';  
             }
-        }
-        
-        public int find(int x) {
-            if( parent[x] != x) parent[x] = find(parent[x]);
-            return parent[x];
-        }
-        
-        public boolean union(int x, int y) {
-            int xp = find(x), yp = find(y);
-            if(xp == yp) return false;
-            if(rank[xp] < rank[yp]) {
-                parent[xp] = yp;
-            } else if(rank[xp] > rank[yp]) {
-                parent[yp] = xp;
-            } else {
-                parent[xp] = yp;
-                rank[xp]++;
-            }
-            return true;
-        }
+        } 
     }
 }
-
