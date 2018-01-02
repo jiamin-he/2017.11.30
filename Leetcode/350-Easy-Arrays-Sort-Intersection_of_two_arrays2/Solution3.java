@@ -35,7 +35,7 @@ class Solution1 {
             if(nums1[p1]==nums2[p2]){
                 res.add(nums1[p1]);
                 p1++;
-                p2++;
+                p2++; 
             }
             else if(nums1[p1]<nums2[p2])
                 p1++;
@@ -47,5 +47,51 @@ class Solution1 {
             t[i]=res.get(i);
             
         return t;
+    }
+}
+
+
+
+// Jan 2nd review
+// 5ms
+
+class Solution {
+    public int[] intersect(int[] nums1, int[] nums2) {
+        List<Integer> res = new ArrayList<>();
+        if(nums1 == null || nums2 == null || nums1.length == 0 || nums2.length == 0) 
+            return new int[0];
+        Arrays.sort(nums1);
+        Arrays.sort(nums2);
+        int i1 = 0, i2 = 0, c1 = 1, c2 = 1;
+        while(i1 < nums1.length && i2 < nums2.length) {
+            while(i1 < nums1.length -1  && nums1[i1+1] == nums1[i1]) {
+                c1++;
+                i1++;
+            }
+            while(i2 < nums2.length -1  && nums2[i2+1] == nums2[i2]) {
+                c2++;
+                i2++;
+            }
+            if(nums1[i1] == nums2[i2]) {
+                int c = Math.min(c1,c2);
+                while(c-- > 0) {
+                    res.add(nums1[i1]);
+                }
+                i1++; i2++;
+                c1 = 1; c2 = 1;
+            } else if (nums1[i1] < nums2[i2]) {
+                i1++;
+                c1 = 1;
+            } else {
+                i2++;
+                c2 = 1;
+            }
+        }
+        int[] resArray = new int[res.size()];
+        int i = 0;
+        for(int r: res) {
+            resArray[i++] = r;
+        }
+        return resArray;
     }
 }

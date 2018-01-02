@@ -49,3 +49,38 @@ class Solution {
         fill(grid,r,c-1);
     }
 }
+
+// Jan 1st Review
+// 7ms 46%
+class Solution {
+    public int numIslands(char[][] grid) {
+        int count = 0;
+        if(grid == null || grid.length == 0 || grid[0].length == 0) return count;
+        int row = grid.length, col = grid[0].length;
+        for(int i = 0; i < row; i++) {
+            for(int j = 0; j < col; j++) {
+                if(grid[i][j] == '1') {
+                    dfs(grid, i, j, row, col);
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+    
+    public void dfs(char[][] grid, int i, int j, int row, int col) {
+        grid[i][j] = '0';
+        if(j < col - 1 && grid[i][j+1] == '1' ) {
+            dfs(grid, i, j+1, row, col);
+        }
+        if(i < row - 1 && grid[i+1][j] == '1') {
+            dfs(grid, i+1, j, row, col);
+        }
+        if(i > 0 && grid[i-1][j] == '1') {
+            dfs(grid, i-1,j,row,col);
+        }
+        if(j > 0 && grid[i][j-1] =='1') {
+            dfs(grid, i,j-1,row,col);
+        }
+    }
+}
