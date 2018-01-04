@@ -20,7 +20,7 @@ Merge k sorted linked lists and return it as one sorted list. Analyze and descri
 
 
 // priority queue
-// for pq, insertion complexity is O(k) (k is里面有多少个数)
+// for pq, insertion complexity is O(log k) (k is里面有多少个数)
 // O(n log k)
 // 26ms 14%
 public class Solution {
