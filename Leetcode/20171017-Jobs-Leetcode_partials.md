@@ -4,7 +4,18 @@
 
   【252 meeting rooms】
 
-- ​
+```java
+Arrays.sort(envelopes, (int[] a, int[] b) -> a[0] - b[0]);
+
+Arrays.sort(envelopes, new Comparator<int[]>(){
+        public int compare(int[] arr1, int[] arr2){
+            if(arr1[0] == arr2[0])
+                return arr2[1] - arr1[1];
+            else
+                return arr1[0] - arr2[0];
+       } 
+    });
+```
 
 #### 新定义的class
 
@@ -203,5 +214,31 @@ String pair = new StringBuilder(cur.substring(j+1)).reverse().toString();
 ```
 char[] sc = s.toCharArray();
 return new String(sc);
+```
+
+#### matrix 要扫附近8个时
+
+```java
+int[][] dirs = new int[][]{{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};
+for(int[] dir : dirs){
+                    int x = i + dir[0];
+                    int y = j + dir[1];
+                    if(x >= 0 && x < m && y >= 0 && y < n && (board[x][y] == 1 || board[x][y] == 2)){
+                        cnt++;
+                    }
+                }
+
+
+//OR
+public int liveNeighbors(int[][] board, int m, int n, int i, int j) {
+        int lives = 0;
+        for (int x = Math.max(i - 1, 0); x <= Math.min(i + 1, m - 1); x++) {
+            for (int y = Math.max(j - 1, 0); y <= Math.min(j + 1, n - 1); y++) {
+                lives += board[x][y] & 1;
+            }
+        }
+        lives -= board[i][j] & 1;
+        return lives;
+    }
 ```
 
