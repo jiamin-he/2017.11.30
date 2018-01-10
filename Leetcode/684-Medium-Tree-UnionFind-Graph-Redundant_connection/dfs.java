@@ -1,6 +1,6 @@
 /*
  Author:     Jiamin, hejiamin1995@gmail.com
- Date:       Nov 8, 2017
+ Date:       Jan 7, 2017
  Problem:    redundant connection
  Difficulty: medium
  Notes:
@@ -31,34 +31,37 @@ The size of the input 2D-array will be between 3 and 1000.
 Every integer represented in the 2D-array will be between 1 and N, where N is the size of the input array.
 */
 
-import java.util.*;
 
-class Solution1 {
+// 25ms 9%
+class Solution {
+    Set<Integer> seen = new HashSet();
+    int MAX_EDGE_VAL = 1000;
 
-// 运用了一个 并查集 union find 的思路
     public int[] findRedundantConnection(int[][] edges) {
-        int[] parents = new int[edges.length+1];
-        for(int i = 0; i < parents.length; i++) parents[i] = i;
-        int l = 0, r = 0, lparent = 0, rparent = 0;
-        for(int[] edge: edges){
-            l = edge[0];
-            r = edge[1];
-            lparent = findParent(l,parents);
-            rparent = findParent(r,parents);
-            if( lparent == rparent) return edge;
-            parents[rparent] = lparent;
+        ArrayList<Integer>[] graph = new ArrayList[MAX_EDGE_VAL + 1];
+        for (int i = 0; i <= MAX_EDGE_VAL; i++) {
+            graph[i] = new ArrayList();
         }
-        return new int[2];
-    }
 
-    public int findParent(int child, int[] parents){
-        if(parents[child] == child) return child;
-        parents[child] = findParent(parents[child], parents);
-        return parents[child];
+        for (int[] edge: edges) {
+            seen.clear();
+            if (!graph[edge[0]].isEmpty() && !graph[edge[1]].isEmpty() &&
+                    dfs(graph, edge[0], edge[1])) {
+                return edge;
+            }
+            graph[edge[0]].add(edge[1]);
+            graph[edge[1]].add(edge[0]);
+        }
+        throw new AssertionError();
     }
-
-    public static void main(String[] args) {
-       
-        
+    public boolean dfs(ArrayList<Integer>[] graph, int source, int target) {
+        if (!seen.contains(source)) {
+            seen.add(source);
+            if (source == target) return true;
+            for (int nei: graph[source]) {
+                if (dfs(graph, nei, target)) return true;
+            }
+        }
+        return false;
     }
 }

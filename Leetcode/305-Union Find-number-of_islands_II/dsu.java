@@ -80,6 +80,10 @@ class Solution {
         public DSU(int N) {
             parent = new int[N];
             rank = new int[N];
+            //检查时看一下这里要不要 原来没有这一段 但我觉得不太对
+            // for (int i = 0; i < N; i++) {
+            //     parent[i] = i;
+            // }
         }
         
         public int find(int x) {

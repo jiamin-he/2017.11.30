@@ -71,6 +71,7 @@ class Solution {
             return parent[x];
         }
         
+        // 后面那个是爸爸 别弄错了
         public void union(int x, int y) {
             int xp = find(x), yp = find(y);
             if(rank[xp] < rank[yp]) {

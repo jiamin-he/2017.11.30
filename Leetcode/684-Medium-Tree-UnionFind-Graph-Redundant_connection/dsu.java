@@ -24,6 +24,8 @@ The length of each pairs[i] will be 2.
 The length of each words[i] and pairs[i][j] will be in the range [1, 20].
 */
 
+// 6ms 35%
+
 class Solution {
     public int[] findRedundantConnection(int[][] edges) {
         DSU dsu = new DSU(edges.length + 1);

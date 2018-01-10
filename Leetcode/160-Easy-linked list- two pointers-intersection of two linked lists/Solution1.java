@@ -50,12 +50,8 @@ public class Solution {
 public class Solution {
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
         int lenA = length(headA), lenB = length(headB);
-        ListNode aCur = headA, bCur = headB;
-        while(aCur != bCur ) {
-            aCur = aCur == null? headB:aCur.next;
-            bCur = bCur == null? headA:bCur.next;
-        }
-        return aCur;
+        // offset, move firstly
+        // and then compare
     }
     
     public int length (ListNode head) {

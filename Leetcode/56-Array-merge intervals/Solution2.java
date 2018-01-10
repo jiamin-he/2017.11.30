@@ -22,6 +22,7 @@ return [1,6],[8,10],[15,18].
  *     Interval(int s, int e) { start = s; end = e; }
  * }
  */
+// 17ms
 class Solution {
     public List<Interval> merge(List<Interval> intervals) {
         if( intervals == null || intervals.size() == 0) return intervals;

@@ -35,6 +35,8 @@ Every integer represented in the 2D-array will be between 1 and N, where N is th
 
 import java.util.*;
 
+
+// 6ms 52%
 class Solution1 {
 
     public int[] findRedundantDirectedConnection(int[][] edges) {

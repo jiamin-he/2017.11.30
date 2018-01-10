@@ -15,6 +15,14 @@ Arrays.sort(envelopes, new Comparator<int[]>(){
                 return arr1[0] - arr2[0];
        } 
     });
+
+Arrays.sort(envelopes, new Comparator<int[]>(){
+            public int compare(int[] a, int[] b) {
+                if(a[0] > b[0]) return 1;
+                else if (a[0] < b[0]) return -1;
+                else return a[1]-b[1];
+            }
+        });
 ```
 
 #### 新定义的class
@@ -30,6 +38,17 @@ Arrays.sort(envelopes, new Comparator<int[]>(){
 #### 自定义的priority queue的compare
 
 - 【253 meeting rooms II — Solution2】
+
+```java
+Arrays.sort(intervals, new Comparator<Interval>(){
+            public int compare(Interval i1, Interval i2) {return i1.start - i2.start;}
+        });
+        PriorityQueue<Interval> heap = new PriorityQueue<Interval>(intervals.length, new Comparator<Interval>(){
+            public int compare(Interval i1, Interval i2) {return i1.end - i2.end;}
+        });
+```
+
+
 
 #### Array -> arraylist
 
@@ -242,3 +261,17 @@ public int liveNeighbors(int[][] board, int m, int n, int i, int j) {
     }
 ```
 
+#### Arrays.binarySearch
+
+```Java
+for(int[] e: envelopes) {
+            int index = Arrays.binarySearch(dp,0,size,e[1]);
+            if(index < 0) index = -(index+1);
+            dp[index] = e[1];
+            if(index == size) size++;
+        }
+```
+
+返回的是 if not contained -(insertionpoint+1) 
+
+if contained, index.

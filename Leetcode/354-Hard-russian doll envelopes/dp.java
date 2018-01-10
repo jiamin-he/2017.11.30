@@ -19,6 +19,15 @@ class Solution {
         if(envelopes == null || envelopes.length == 0 || envelopes[0].length == 0) return 0;
         int len = envelopes.length;
         Arrays.sort(envelopes, (int[] a, int[] b) -> a[0] - b[0]);
+        // 把上面这个lambda表达式 改一下 写成正常的new compartor 会快一点 记得Comparator要大写
+        // 467ms 30%
+        // Arrays.sort(envelopes, new Comparator<int[]>(){
+        //     public int compare(int[] a, int[] b) {
+        //         if(a[0] > b[0]) return 1;
+        //         else if (a[0] < b[0]) return -1;
+        //         else return a[1]-b[1];
+        //     }
+        // });
         int[] dp = new int[len];
         int res = 0;
         for(int i = 0; i < len; i++) {
