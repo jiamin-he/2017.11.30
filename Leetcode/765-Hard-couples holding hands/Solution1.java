@@ -26,31 +26,38 @@ Note:
 len(row) is even and in the range of [4, 60].
 row is guaranteed to be a permutation of 0...len(row)-1.
 */
+
 class Solution {
-    public int orderOfLargestPlusSign(int N, int[][] mines) {
-        int[][] grid = new int[N][N];
-        for(int[] mine: mines) {
-            grid[mine[0]][mine[1]] = 1;
+    public int minSwapsCouples(int[] row) {
+        int[] pos = new int[row.length];
+        boolean[] visited = new boolean[row.length];
+        for(int i = 0; i < row.length; i++) {
+            pos[row[i]] = i;
         }
-        Queue<int[]> q = new LinkedList<>();
-        for(int i = 0; i < N; i++) {
-            for(int j = 0; j < N; j++) 
-                q.offer(new int[] {i,j});
-        }
-        int level = 0, maxLevel = 0;
-        while(!q.isEmpty()) {
-            int[] cur = q.poll();
-            level = 0;
-            int x = cur[0], y = cur[1];
-            if (grid[x][y] == 0 ) level++;
-            int i = 1;
-            while (((x < N-i) && grid[x+i][y]==0) && ((y < N-i) && grid[x][y+i]==0) 
-                && ((x-i >= 0) && grid[x-i][y]==0) && ((y-i >= 0) && grid[x][y-i]==0) ) {
-                level ++;
-                i++;
+        
+        int count = 0;
+        for(int i = 0; i < row.length;) {
+            if(pos[i] % 2 == 0 && (i<row.length-1 && pos[i+1] !=pos[i]+1)) {
+                swap(pos,row,i,true);
+                count++;
+            } else if (pos[i]%2 != 0 &&(i<row.length-1 && pos[i+1] !=pos[i]-1)) {
+                swap(pos,row,i,false);
+                count++;
             }
-            if(level > maxLevel) maxLevel = level;
+            i += 2;
         }
-        return maxLevel;
+        return count;
+    }
+    
+    public void swap (int[] pos, int[] row, int i, boolean even) {
+        int seat = even? pos[i]+1: pos[i]-1;
+        int temp1 = pos[i+1];  // person i+1 's original seat
+        pos[i+1] = seat;
+        //pos[i+1] = pos[i]+1; // he should sit to this seat
+        pos[row[seat]] = temp1;
+        //pos[row[pos[i]+1]] = temp1; // the person on this seat is who. and then he sits to that seat. so they swapped the seat.
+        int temp2 = row[pos[i+1]]; // person i+1's current seat originally sits whom.
+        row[pos[i+1]] = i+1; // now sits person i+1
+        row[temp1] = temp2; // person i+1's original seat now sits that one.
     }
 }

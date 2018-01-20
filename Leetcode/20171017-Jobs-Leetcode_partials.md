@@ -275,3 +275,13 @@ for(int[] e: envelopes) {
 返回的是 if not contained -(insertionpoint+1) 
 
 if contained, index.
+
+
+
+#### hashset<int[]> compare
+
+HashSet uses ***.equals()*** to see if a new object is duplicated and .hashCode() to determine the "bucket".
+
+so HashSet<int[]> —> new int[] {1,2,3} is not equal to new int[] {1,2,3}
+
+so should use HashSet<ArrayList> instead of arrays, since ArrayList's equality is determined by the equality of the members and the order in which they appear. (ArrayList override hashCode and equals implementation.)

@@ -20,6 +20,9 @@ Explanation: The perimeter is the 16 yellow stripes in the image below:
 
 */
 
+
+// 167ms 20.8%
+// 判断为1 的元素 与其周围 4元素的关系
 import java.util.Arrays;
 
 class Solution1 {
