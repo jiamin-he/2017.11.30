@@ -72,3 +72,26 @@ class Solution {
         return dummy.next;
     }
 }
+
+
+// Jan 25th 2018 review
+// dummy node and two pointers 
+// one pass, O(N)
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode fast = dummy;
+        ListNode slow = dummy;
+        while(n-- > 0 && fast != null) {
+            fast = fast.next;
+        }
+        while(fast.next != null) {
+            fast = fast.next;
+            slow = slow.next;
+        }
+        ListNode temp = slow.next.next;
+        slow.next = temp;
+        return dummy.next;
+    }
+}

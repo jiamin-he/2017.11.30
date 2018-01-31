@@ -47,3 +47,28 @@ class Solution {
         return aDummy.next;
     }
 }
+
+// Jan 25th review
+// same solution
+class Solution {
+    public ListNode partition(ListNode head, int x) {
+        ListNode dummyL = new ListNode(0);
+        ListNode dummyGE = new ListNode(0);
+        ListNode curL = dummyL;
+        ListNode curGE = dummyGE;
+        while(head != null) {
+            if(head.val < x) {
+                curL.next = head;
+                curL = curL.next;
+            } else {
+                curGE.next = head;
+                curGE = curGE.next;
+            }
+            ListNode temp = head.next;
+            head.next = null;
+            head = temp;
+        }
+        curL.next = dummyGE.next;
+        return dummyL.next;
+    }
+}

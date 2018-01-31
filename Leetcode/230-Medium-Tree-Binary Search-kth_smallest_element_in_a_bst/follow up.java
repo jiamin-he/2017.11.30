@@ -14,5 +14,9 @@ Follow up:
 What if the BST is modified (insert/delete operations) often and you need to find the kth smallest frequently? How would you optimize the kthSmallest routine?
 
 */
-If we could add a count field in the BST node class, it will take O(n) time when we calculate the count value for the whole tree, but after that, it will take O(logn) time when insert/delete a node or calculate the kth smallest element.
+
+If we could add a count field in the BST node class, 
+it will take O(n) time when we calculate the count value for the whole tree,
+but after that, it will take O(logn) time 
+when insert/delete a node or calculate the kth smallest element.
 (binary search)
