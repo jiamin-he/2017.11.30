@@ -52,3 +52,25 @@ class Solution {
         return res;
     }
 }
+
+//Feb 2nd, review
+class Solution {
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        Queue<TreeNode> q = new LinkedList<>();
+        List<List<Integer>> res = new ArrayList<>();
+        if(root == null) return res;
+        q.offer(root);
+        while(!q.isEmpty()) {
+            int size = q.size();
+            List<Integer> temp = new ArrayList<>();
+            while(size-->0) {
+                TreeNode cur = q.poll();
+                temp.add(cur.val);
+                if(cur.left != null) q.offer(cur.left);
+                if(cur.right != null) q.offer(cur.right);
+            }
+            res.add(temp);
+        }
+        return res;
+    }
+}
