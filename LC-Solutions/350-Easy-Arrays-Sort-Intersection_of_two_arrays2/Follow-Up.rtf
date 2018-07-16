@@ -1,0 +1,68 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset134 PingFangSC-Regular;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww20580\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 Given two arrays, write a function to compute their intersection.\
+\
+Example:\
+Given nums1 = [1, 2, 2, 1], nums2 = [2, 2], return [2, 2].\
+\
+Note:\
+Each element in the result should appear as many times as it shows in both arrays.\
+The result can be in any order.\
+\
+\
+################\
+\
+Follow-Up\
+\
+1.What if the given array is already sorted? How would you optimize your algorithm?\
+\
+2.What if nums1's size is small compared to nums2's size? Which algorithm is better?\
+\
+3.What if elements of nums2 are stored on disk, and the memory is limited such that you cannot load all elements into the memory at once?\
+\
+################\
+\
+1.What if the given array is already sorted? How would you optimize your algorithm?\
+\
+\'97\'97> \
+\
+** if both arrays are sorted, I would use two pointers to iterate, \strike \strikec0 which somehow resembles the merge process in merge sort.\
+\strike0\striked0 \
+===================================merge process in merge sort????????\
+===================================Maybe not.\
+\
+################\
+\
+2.What if nums1's size is small compared to nums2's size? Which algorithm is better?\
+\
+\'97\'97> \
+\
+** suppose lengths of two arrays are N and M, the time complexity of this solution is O(N+M) and the space complexity is O(N), considering the hash. So it\'92s better to use the smaller array to construct the counter hash.\
+\
+** well, as we are calculating the intersection of two arrays, the order of array doesn\'92t matter. We are totally free to swap to arrays.\
+\
+################\
+\
+3. What if elements of nums2 are stored on disk, and the memory is limited such that you cannot load all elements into the memory at once?\
+\
+\'97\'97> \
+\
+** if only nums2 cannot fit in memory, put all elements of nums1 into a HashMap, read chunks of array that fit into the memory, and record the intersections.\
+(
+\f1 \'b0\'d1
+\f0 1
+\f1 \'b6\'bc\'b6\'c1\'bd\'f8\'c0\'b4\'a3\'ac\'c8\'bb\'ba\'f3\'c4\'c3hashmap\'c0\'ef\'b5\'c41\'c8\'a5\'b8\'fa\'ca\'fd\'d7\'e92\'b6\'d4\'b1\'c8\'be\'cd\'d0\'d0\'a3\'ac\'b2\'bb\'d0\'e8\'d2\'aa\'b0\'d12\'b6\'c1\'b3\'c9hashmap
+\f0 )\
+\
+** if both nums1 and nums2 are so huge that neither fit into the memory, sort them individually (external sort), then read 2 elements from each array at a time in memory, record intersections.\
+(
+\f1 \'cf\'c8\'c5\'c5\'d0\'f2 \'c3\'bf\'b4\'ce\'b6\'c1\'c1\'bd\'b8\'f6\'ca\'fd 1\'b5\'c4\'ca\'fd\'b4\'f3\'c1\'cb 2\'b5\'c4index\'cd\'f9\'c7\'b0\'bd\'f8 vise versa
+\f0 )\
+\
+=====================================external merge sort
+\f1 \'a3\'bf\'a3\'bf\'a3\'bf}
