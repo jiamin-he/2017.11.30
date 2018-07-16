@@ -56,3 +56,28 @@ class Solution {
         
     }
 }
+
+// Jun 24, review
+class Solution {
+    public String countAndSay(int n) {
+        if (n<0) return "";
+        String ori = "1";
+        
+        while(--n > 0){
+            int len = ori.length();
+            int counter = 1;
+            StringBuilder sb = new StringBuilder();
+            for(int i = 1; i<len; i++) {
+                if(ori.charAt(i) == ori.charAt(i-1)) {
+                    counter++;
+                } else {
+                    sb.append(counter).append(ori.charAt(i-1));
+                    counter = 1;
+                }
+            }
+            sb.append(counter).append(ori.charAt(len-1));
+            ori = sb.toString();
+        }
+        return ori;
+    }
+}

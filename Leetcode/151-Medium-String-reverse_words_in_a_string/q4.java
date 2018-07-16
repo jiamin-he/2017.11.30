@@ -31,3 +31,27 @@ class q4 {
         System.out.println(n1);  
     }
 }
+
+
+// Jun 24,2018, review
+public class Solution {
+    public String reverseWords(String s) {
+        Deque<String> res = new ArrayDeque<>();
+        int start = 0;
+        for ( int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == ' ') {
+                System.out.println(i+"-->"+s.substring(start,i));
+                res.push(s.substring(start,i));
+                start = i+1;
+                
+            }
+        }
+        res.push(s.substring(start,s.length()));
+        StringBuilder sb = new StringBuilder();
+        while(res.size() > 0) {
+            String temp = res.pop();
+            if(!temp.isEmpty()) sb.append(temp).append(" ");
+        }
+        return sb.toString().trim();
+    }
+}

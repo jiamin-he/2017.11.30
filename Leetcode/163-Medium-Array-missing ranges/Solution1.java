@@ -34,3 +34,42 @@ class Solution {
         return start==end? String.valueOf(start):String.format("%d->%d", start, end);
     }
 }
+
+
+// Jun 24,2018 review
+class Solution {
+    
+    public String helper(int left, int right){
+        String res = new String();
+        if(left == right){
+            res = (Integer.toString(left));
+        } else {
+            res = (new String(left+"->"+right));
+        }   
+        return res;
+    }
+    
+    public List<String> findMissingRanges(int[] nums, int lower, int upper) {
+        int left = lower, right = upper;
+        List<String> res = new ArrayList<>();
+        if(nums.length < 1) {
+            res.add(helper(lower, upper));
+            return res;
+        }
+        if(nums[0] != lower) {
+            res.add(helper(lower, nums[0]-1));
+        }
+        
+        for(int i = 1; i < nums.length; i++) {
+            if(nums[i] !=nums[i-1]  && nums[i] != nums[i-1] +1) {
+                res.add(helper(nums[i-1]+1, nums[i]-1));
+            }
+        }
+        
+        if(nums[nums.length-1] < upper) {
+            res.add(helper(nums[nums.length-1]+1, upper));
+        }    
+        
+        return res;
+    }
+}

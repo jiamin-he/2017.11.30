@@ -48,3 +48,28 @@ class Solution {
         return min;
     }
 }
+
+// Jun 27,2018, review
+class Solution {
+    public int leastBricks(List<List<Integer>> wall) {
+        Map<Integer,Integer> map = new HashMap<>();
+        int size = wall.size();
+        for(List<Integer> eWall : wall){
+            int length = 0;
+            for(int i = 0; i < eWall.size()-1; i++) {
+                int cur = eWall.get(i);
+                length+= cur;
+                if(!map.containsKey(length)){
+                    map.put(length,0);
+                }
+                map.put(length, map.get(length)+1);
+            }
+        }
+        int minCross = 0;
+        for(Integer i: map.keySet()){
+            int num = map.get(i);
+            if(num>minCross) minCross = num;
+        }
+        return size-minCross;
+    }
+}

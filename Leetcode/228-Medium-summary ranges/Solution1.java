@@ -43,3 +43,36 @@ class Solution {
         return res;
     }
 }
+
+
+// Jun 24 , 2018 review
+class Solution {
+    public List<String> summaryRanges(int[] nums) {
+        List<String> res = new ArrayList<>();
+        if (nums.length < 1) return res;
+        int start = 0, end = 0;
+        for(int i = 0; i < nums.length -1; i++) {
+            if(nums[i+1] == nums[i]+1){
+                end++;
+            } else {
+                if(start == end) {
+                    res.add(Integer.toString(nums[start]));
+                    start++;
+                    end++;
+                } else {
+                    String s = nums[start] + "->" + nums[end];
+                    res.add(s);
+                    end++;
+                    start=end;
+                }
+            }
+        }
+        if(start == end) {
+            res.add(Integer.toString(nums[start]));
+        } else {
+            String s = nums[start] + "->" + nums[end];
+            res.add(s);
+        }
+        return res;
+    }
+}
