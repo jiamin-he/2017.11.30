@@ -1,65 +1,66 @@
 /*
  Author:     Jiamin, hejiamin1995@gmail.com
- Date:       Dec 25, 2017
- Problem:    min stack
- Difficulty: easy
+ Date:       July 14, 2018
+ Problem:    maximal rectangle
+ Difficulty: hard
  Notes:
 
-Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.
+Given a 2D binary matrix filled with 0's and 1's, find the largest rectangle containing only 1's and return its area.
 
-push(x) -- Push element x onto stack.
-pop() -- Removes the element on top of the stack.
-top() -- Get the top element.
-getMin() -- Retrieve the minimum element in the stack.
 Example:
-MinStack minStack = new MinStack();
-minStack.push(-2);
-minStack.push(0);
-minStack.push(-3);
-minStack.getMin();   --> Returns -3.
-minStack.pop();
-minStack.top();      --> Returns 0.
-minStack.getMin();   --> Returns -2.
+
+Input:
+[
+  ["1","0","1","0","0"],
+  ["1","0","1","1","1"],
+  ["1","1","1","1","1"],
+  ["1","0","0","1","0"]
+]
+Output: 6
 
 */
 
-public class MinStack {
-    long min;
-    Stack<Long> stack;
 
-    public MinStack(){
-        stack=new Stack<>();
+// 9ms 98%
+class Solution {
+    public int maximalRectangle(char[][] matrix) {
+        if(matrix.length < 1) return 0;
+        int[] heights = new int[matrix[0].length];
+        int res = Integer.MIN_VALUE;
+        for(int i = 0; i < matrix.length; i++){
+            for(int j = 0; j < matrix[0].length; j++) {
+                if(matrix[i][j] == '1') {
+                    heights[j]++;
+                } else {
+                    heights[j] = 0;
+                }
+            }
+            res = Math.max(largestRectangleArea(heights),res);
+        }
+        return res;
     }
     
-    public void push(int x) {
-        if (stack.isEmpty()){
-            stack.push(0L);
-            min=x;
-        }else{
-            stack.push(x-min);//Could be negative if min value needs to change
-            if (x<min) min=x;
+    public int largestRectangleArea(int[] heights) {
+        int n = heights.length;
+        int[] left = new int[n];
+        int[] right = new int[n];
+        int res = 0;
+        for(int i = 0; i < n; i++) {
+            left[i] = i;
+            while((left[i]-1)>=0 && heights[left[i]-1] >= heights[i]) {
+                // this is an important step!!!
+                left[i] = left[left[i]-1];
+            }
         }
-    }
-
-    public void pop() {
-        if (stack.isEmpty()) return;
-        
-        long pop=stack.pop();
-        
-        if (pop<0)  min=min-pop;//If negative, increase the min value
-        
-    }
-
-    public int top() {
-        long top=stack.peek();
-        if (top>0){
-            return (int)(top+min);
-        }else{
-           return (int)(min);
+        for(int i = n-1; i >= 0; i--) {
+            right[i] = i;
+            while((right[i]+1)<n && heights[right[i]+1] >= heights[i]) {
+                right[i] = right[right[i]+1];
+            }
         }
-    }
-
-    public int getMin() {
-        return (int)min;
+        for(int i = 0; i < n; i++) {
+            res = Math.max(res, heights[i] * (right[i]-left[i]+1));
+        }
+        return res;
     }
 }

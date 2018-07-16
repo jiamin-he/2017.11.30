@@ -23,6 +23,19 @@ Arrays.sort(envelopes, new Comparator<int[]>(){
                 else return a[1]-b[1];
             }
         });
+        
+public MedianFinder() {
+    // 直接设置的是最小堆 （k th max）
+    large = new PriorityQueue<>();
+    small = new PriorityQueue<>(new Comparator<Integer>(){
+        public int compare(Integer i1, Integer i2) {
+            // 正常是前面减后面！！！（特殊是后面减前面；
+            // 这样设置的是最大堆（k th min）
+            return i2-i1;
+        } 
+    });
+    size = 0;
+}
 ```
 
 #### 新定义的class

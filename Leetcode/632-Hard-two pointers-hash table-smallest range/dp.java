@@ -23,7 +23,7 @@ For Java users, please note that the input type has been changed to List<List<In
 
 */
 
-// 85ms 56%
+// 42ms 97%
 class Solution {
     class Interval {
         int value;
@@ -60,11 +60,6 @@ class Solution {
                 if((right - left) < (rightR - leftL)) {
                     rightR = right;
                     leftL = left;
-                } else if ((right - left) == (rightR - leftL)) {
-                    if(left < leftL) {
-                        leftL = left;
-                        rightR = right;
-                    }
                 }
             } else {
                 break;

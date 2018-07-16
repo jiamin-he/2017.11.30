@@ -9,7 +9,7 @@ Note: You may not slant the container and n is at least 2.
 */
 
 
-// 10ms 43%
+// 5ms 99%
 class Solution {
     public int maxArea(int[] height) {
         if(height == null || height.length <= 1) return 0;
@@ -26,5 +26,27 @@ class Solution {
             }
         }
         return res;
+    }
+}
+
+// July 11th 2018 review
+// 5ms 99%
+class Solution {
+    public int maxArea(int[] height) {
+        int start = 0, end = height.length-1;
+        int maxArea = Integer.MIN_VALUE;
+        while(start < end) {
+            int minHeight = Math.min(height[start], height[end]);
+            int temp = minHeight*(end-start);
+            if(temp > maxArea) {
+                maxArea = temp;
+            }
+            if(height[start] < height[end]) {
+                start++;
+            } else {
+                end--;
+            }
+        }
+        return maxArea==Integer.MIN_VALUE? 0:maxArea;
     }
 }

@@ -18,6 +18,9 @@ Given "pwwkew", the answer is "wke", with the length of 3. Note that the answer 
 */
 
 // 39 ms 98%
+
+// (Jul 5th, 2018) -- 23ms 100% 
+// position[c] records the leftmost valid start index for non-repeating current char.
 class Solution {
     public int lengthOfLongestSubstring(String s) {
         int[] position=new int[256];

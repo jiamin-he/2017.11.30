@@ -19,6 +19,9 @@ The number of tasks is in the range [1, 10000].
 The integer n is in the range [0, 100].
 */
 
+
+// Jul 4th, 2018 -- review, it is hard to understand this one
+// but solution2 is easier to understand.
 class Solution {
     public int leastInterval(char[] tasks, int n) {
         int[] map = new int[26];
