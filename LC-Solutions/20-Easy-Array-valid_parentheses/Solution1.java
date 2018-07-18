@@ -31,3 +31,29 @@ class Solution {
         return stack.isEmpty();
     }
 }
+
+// July 18 2018 review
+// 6ms 75%
+class Solution {
+    public boolean isValid(String s) {
+        Map<Character, Character> map = new HashMap<>();
+        map.put('(',')');
+        map.put('[',']');
+        map.put('{','}');
+        if(s.length()%2 == 1) return false;
+        Deque<Character> stack = new ArrayDeque<>();
+        for(int i = 0; i < s.length(); i++) {
+            Character c = s.charAt(i);
+            if(map.containsKey(c)) {
+                stack.push(c);
+            } else {
+                if (c.equals(map.get(stack.peek()))) {
+                    stack.pop();
+                } else {
+                    return false;
+                }
+            }
+        }
+        return stack.isEmpty();
+    }
+}

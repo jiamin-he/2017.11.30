@@ -15,7 +15,7 @@ If you have figured out the O(n) solution, try coding another solution of which 
 
 */
 
-// 2ms 60%
+// 2ms 100%
 // O(N)
 class Solution {
     public int minSubArrayLen(int s, int[] nums) {
@@ -31,5 +31,24 @@ class Solution {
             }
         }
         return minLen==Integer.MAX_VALUE? 0:minLen;
+    }
+}
+
+// July 17th 2018 review
+// 2ms 100%
+class Solution {
+    public int minSubArrayLen(int s, int[] nums) {
+        int start = 0, sum = 0, res = Integer.MAX_VALUE;
+        for(int i = 0; i < nums.length; i++) {
+            sum += nums[i];
+            if(sum >= s) {
+                while(sum >= s) {
+                    sum -= nums[start];
+                    start++;
+                }
+                res= Math.min(res, (i-(start-1)+1));
+            }
+        }
+        return res==Integer.MAX_VALUE?0:res;
     }
 }

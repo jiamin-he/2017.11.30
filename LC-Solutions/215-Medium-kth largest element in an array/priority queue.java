@@ -13,10 +13,10 @@ Note:
 You may assume k is always valid, 1 ≤ k ≤ array's length.
 */
 
-// quick select 
-// average o(n), worst O(n^2)
 
-// 18ms 50%
+// O(nlogk)
+
+// 9ms 67%
 class Solution {
     public int findKthLargest(int[] nums, int k) {
         PriorityQueue<Integer> largeK = new PriorityQueue<Integer>(k + 1);
@@ -29,5 +29,24 @@ class Solution {
         }
 
         return largeK.poll();
+    }
+}
+
+// 9ms 67%
+class Solution {
+    public int findKthLargest(int[] nums, int k) {
+        PriorityQueue<Integer> pq = new PriorityQueue(k);
+        for(int i = 0; i < nums.length; i++) {
+            if(pq.size() >= k) {
+                if(nums[i] > pq.peek()) {
+                    pq.poll(); 
+                    pq.offer(nums[i]);
+                } 
+            } else {
+                pq.offer(nums[i]);    
+            }
+            
+        }
+        return pq.peek();
     }
 }

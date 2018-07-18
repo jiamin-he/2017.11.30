@@ -27,3 +27,25 @@ class Solution {
         return res;
     }
 }
+
+
+// reference: July 16th, 2018, Cooper's:
+// similar as above. (every time multiply by a negative/ positive number, will switch 
+// the global positive/negative. )
+public class _152_MaximumProductSubarray {
+    public int maxProduct(int[] nums) {
+        int gmin = 1;
+        int gmax = 1;
+        // 1 乘任何数都为1
+        int res = Integer.MIN_VALUE;
+        for(int val : nums){
+            //此处定义一下防止被篡改掉
+            int max = gmax;
+            int min = gmin;
+            gmax = Math.max(val,Math.max(val* max,val * min));
+            gmin= Math.min(val,Math.min(val*max, val *min));
+            res = Math.max(res, gmax);
+        }
+        return res;
+    }
+}

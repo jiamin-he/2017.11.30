@@ -27,3 +27,26 @@ class Solution {
         return Math.max(leftMax,rightMax);
     }
 }
+
+
+// July 16th 2018 review
+// 100%
+class Solution {
+    public int maxProduct(int[] nums) {
+        int lmax = Integer.MIN_VALUE, rmax = Integer.MIN_VALUE, left = 1, right = 1;
+        for(int i= 0; i < nums.length; i++){
+            left *= nums[i];
+            right *= nums[nums.length-i-1];
+            lmax = Math.max(lmax,left);
+            rmax = Math.max(rmax,right);
+            if(nums[i] == 0) {
+                left = 1;
+            }
+            if(nums[nums.length-i-1]==0) {
+                right = 1;
+            }
+            
+        }
+        return Math.max(lmax,rmax);
+    }
+}
