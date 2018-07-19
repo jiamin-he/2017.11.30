@@ -22,6 +22,7 @@ Merge k sorted linked lists and return it as one sorted list. Analyze and descri
 // total 3n, nlog8
 
 // O(n log k)
+// space O(1)
 
 /**
  * Definition for singly-linked list.

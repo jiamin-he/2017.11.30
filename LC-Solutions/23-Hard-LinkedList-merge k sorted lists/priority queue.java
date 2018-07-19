@@ -47,3 +47,41 @@ public class Solution {
     }
 }
 
+
+// 13ms 81%
+
+// time: O(n log k)
+// space: O(k)
+
+// July 17th 2018 review
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public ListNode mergeKLists(ListNode[] lists) {
+        ListNode dummy = new ListNode(-1);
+        ListNode cur = dummy;
+        dummy.next = null;
+        PriorityQueue<ListNode> pq = new PriorityQueue<>(new Comparator<ListNode>(){
+            public int compare(ListNode l1, ListNode l2) {
+                return l1.val - l2.val;
+            }
+        });
+        for(int i = 0; i < lists.length; i++) {
+            if(lists[i]!=null)pq.offer(lists[i]);
+        }
+        while(!pq.isEmpty()){
+            cur.next = pq.poll();
+            cur = cur.next;
+            if(cur.next != null) {
+                pq.offer(cur.next);
+            }
+        }
+        return dummy.next;
+    }
+}
