@@ -58,3 +58,27 @@ class Solution {
         return maxLen;
     }
 }
+
+// O(n^2)
+// 12ms 65%
+// Jul 19th 2018 review
+// same as the above.
+class Solution {
+    public int lengthOfLIS(int[] nums) {
+        if(nums.length< 1) return 0;
+        int res = Integer.MIN_VALUE;
+        int[] dp = new int[nums.length];
+        dp[0] = 1;
+        for(int i = 1; i< nums.length; i++) {
+            int temp = Integer.MIN_VALUE;
+            for(int j = i-1; j >= 0; j--) {
+                if(nums[i] > nums[j]) {
+                    temp = Math.max(dp[j]+1, temp);
+                }
+            }
+            dp[i] = temp==Integer.MIN_VALUE? 1:temp;
+            res = Math.max(res, dp[i]);
+        }
+        return res==Integer.MIN_VALUE?1:res;
+    }
+}

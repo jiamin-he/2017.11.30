@@ -14,38 +14,42 @@ Your algorithm should run in O(n2) complexity.
 Follow up: Could you improve it to O(n log n) time complexity?
 */
 
-// 22ms 77%
 class Solution {
-    public int maxEnvelopes(int[][] envelopes) {
-        if(envelopes == null || envelopes.length == 0 || envelopes[0].length == 0) return 0;
-        int len = envelopes.length;
-        Arrays.sort(envelopes, new Comparator<int[]>(){
-            public int compare(int[] a, int[] b) {
-                if(a[0] > b[0]) return 1;
-                else if (a[0] < b[0]) return -1;
-                else return b[1]-a[1];
+    public int lengthOfLIS(int[] nums) {
+        if(nums == null || nums.length == 0) return 0;
+        int[] record = new int[nums.length + 1];
+        record[0] = nums[0];
+        int len = 1;
+        for(int i = 1; i < nums.length; i++){
+            int cur = nums[i];
+            if(cur <= record[0]){
+                record[0] = cur;
+            }else if(crt > record[len - 1]){
+                record[len] = cur;
+                len++;
+            }else{
+                insertNum(record, len, cur);
             }
-        });
-        int[] dp = new int[len];
-        int size = 0;
-        for(int[] e: envelopes) {
-            int left = 0, right = size, middle = 0;
-            while(left < right) {
-                middle = left + (right - left)/2;
-                if(dp[middle] < e[1]) left = middle+1;
-                else right = middle;
-            }
-            dp[left] = e[1];
-            if(left == size) size++;
         }
-        // 也可以用Arrays的内置函数
-        // 会慢一点点
-        // for(int[] e: envelopes) {
-        //     int index = Arrays.binarySearch(dp,0,size,e[1]);
-        //     if(index < 0) index = -(index+1);
-        //     dp[index] = e[1];
-        //     if(index == size) size++;
-        // }
-        return size;
+        return len;
+    }
+    
+    private void insertNum(int[] record, int len, int cur){
+        int start = 0, end = len - 1;
+        while(start + 1 < end){
+            int mid = start + (end - start) / 2;
+            if(record[mid] == cur){
+                return;
+            }else if(record[mid] < cur){
+                start = mid;
+            }else{
+                end = mid;
+            }
+        }
+        if(record[start] >= cur){
+            record[start] = cur;
+        }else{
+            record[end] = cur;
+        }
     }
 }

@@ -21,47 +21,7 @@ Follow Up:
 Can you do it in O(n) time?
 */
 
-// 对比下面三个版本
-// 由于第一个 里面的 if else if 其实应该是 if if
-// 导致 [1,1,1,0,0] k=1 
-// 后面的0没有被计入
-// 然后我就还去判断了后面是0不是0的情况
-class Solution {
-    public int maxSubArrayLen(int[] nums, int k) {
-        Map<Integer,Integer> map = new HashMap<>();
-        map.put(0,0);
-        int sum = 0, maxLen = 0;
-        for(int i = 0; i < nums.length; i++) {
-            sum+=nums[i];
-            if(map.containsKey(sum-k)) maxLen = Math.max(maxLen, i+1-map.get(sum-k));
-            else if(!map.containsKey(sum)) map.put(sum,i+1);
-        }
-        return maxLen;
-    }
-}
-
-
-// 29ms 54%
-class Solution {
-    public int maxSubArrayLen(int[] nums, int k) {
-        Map<Integer,Integer> map = new HashMap<>();
-        map.put(0,0);
-        int sum = 0, maxLen = 0;
-        for(int i = 0; i < nums.length; i++) {
-            sum+=nums[i];
-            int iMove = i;
-            if(map.containsKey(sum-k)) {
-                while( iMove+1 < nums.length && nums[iMove+1] == 0) iMove++;
-                int cur = iMove+1-map.get(sum-k);
-                maxLen = Math.max(cur,maxLen);
-            }
-            if(!map.containsKey(sum)) map.put(sum,i+1);
-            i = iMove;
-        }
-        return maxLen;
-    }
-}
-
+// 17ms 45%
 // 但其实正常写就可以了！！！
 class Solution {
     public int maxSubArrayLen(int[] nums, int k) {
