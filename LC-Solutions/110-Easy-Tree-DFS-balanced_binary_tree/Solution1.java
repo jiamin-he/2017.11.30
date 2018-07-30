@@ -58,3 +58,58 @@ class Solution {
         return -1;
     }
 }
+
+
+// July 25th 2018 review
+// 1ms 75%
+// 可以不用设置res数组来传值，直接让他return -1 就表示fail就可以了
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public boolean isBalanced(TreeNode root) {
+        boolean[] res = new boolean[]{true};
+        helper(root,res);
+        return res[0];
+    }
+        
+    public int helper(TreeNode root, boolean[] res) {
+        if(root == null) return 0;
+        int left = helper(root.left, res), right = helper(root.right,res);
+        if(res[0] == true && Math.abs(left-right) > 1) {
+            res[0] = false;
+        }
+        return Math.max(left,right)+1;
+    }
+}
+
+// improved version
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public boolean isBalanced(TreeNode root) {
+        int res = helper(root);
+        return res == -1? false:true;
+    }
+        
+    public int helper(TreeNode root) {
+        if(root == null) return 0;
+        int left = helper(root.left), right = helper(root.right);
+        if(left == -1 || right == -1 || Math.abs(left-right) > 1) return -1;
+        return Math.max(left,right)+1;
+    }
+}

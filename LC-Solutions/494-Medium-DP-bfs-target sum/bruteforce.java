@@ -43,3 +43,25 @@ class Solution {
         plusOrMinus(nums, S, sum-nums[index], index+1);
     }
 }
+
+// 872ms 1%
+// Time complexity : O(2^n)
+//
+// Space complexity : O(n). The depth of the recursion tree can go upto n.
+class Solution {
+    public int findTargetSumWays(int[] nums, int S) {
+        int[] res = new int[1];
+        helper(nums, S, res, 0);
+        return res[0];
+    }
+    public void helper(int[] nums, int target, int[] res, int index) {
+        if(index == nums.length){
+            if(target == 0) {
+                res[0]++;      
+            }
+        } else if(index < nums.length){
+            helper(nums, target+nums[index], res, index+1);
+            helper(nums, target-nums[index], res, index+1);
+        }
+    }
+}
