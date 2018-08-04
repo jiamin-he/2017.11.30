@@ -77,3 +77,40 @@ class Solution {
         return true;
     }
 }
+
+
+// 3ms 98%
+// Jul 24, 2018
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public boolean isSameTree(TreeNode p, TreeNode q) {
+        Queue<TreeNode> qp = new LinkedList<>();
+        Queue<TreeNode> qq = new LinkedList<>();
+        qp.offer(p);
+        qq.offer(q);
+        while(!qp.isEmpty() && !qq.isEmpty()){
+            TreeNode temP = qp.poll();
+            TreeNode temQ = qq.poll();
+            if(temP == null && temQ == null){
+                continue;
+            } 
+            if(temP != null && temQ != null && temP.val == temQ.val) {
+                qp.offer(temP.left);
+                qp.offer(temP.right);
+                qq.offer(temQ.left);
+                qq.offer(temQ.right);
+            } else {
+                return false;
+            }
+        }
+        return qp.isEmpty()&&qq.isEmpty();
+    }
+}

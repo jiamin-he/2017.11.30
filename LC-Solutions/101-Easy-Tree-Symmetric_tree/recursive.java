@@ -40,7 +40,7 @@ Bonus points if you could solve it both recursively and iteratively.
  * }
  */
 
-class Solution2 {
+class Solution1 {
 
     static class TreeNode {
         int val;
@@ -136,5 +136,32 @@ class Solution2 {
         System.out.println(s1.isSymmetric(root));
         
 
+    }
+}
+
+
+// Jul 24th 2018, review
+// 9ms 31%
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public boolean isSymmetric(TreeNode root) {
+        if(root == null) return true;
+        return helper(root.left, root.right);
+    }
+    
+    public boolean helper(TreeNode r1, TreeNode r2) {
+        if(r1 == null && r2 == null) return true;
+        if(r1!= null && r2!= null && r1.val == r2.val) {
+            return helper(r1.left, r2.right)&& helper(r1.right, r2.left);
+        }
+        return false;
     }
 }

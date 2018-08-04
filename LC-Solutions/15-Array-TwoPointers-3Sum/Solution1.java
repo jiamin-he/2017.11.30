@@ -63,3 +63,32 @@ class Solution1 {
         
     }
 }
+
+
+// 2018 July 28 review
+// 44ms 95%
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        Arrays.sort(nums);
+        for ( int i = 0; i < nums.length; i++) {
+            if(i==0 || nums[i] != nums[i-1]) {
+                int left = i+1, right = nums.length-1, target = 0-nums[i];
+                while(left < right) {
+                    int temp = nums[left] + nums[right];
+                    if(temp < target) {
+                        left++;
+                    } else if (temp > target) {
+                        right--;
+                    } else {
+                        res.add(Arrays.asList(nums[i], nums[left], nums[right]));
+                        int l = nums[left], r = nums[right];
+                        while(left < right && nums[++left] == l);
+                        while(right > left && nums[--right] == r);
+                    }
+                }
+            }
+        }
+        return res;
+    }
+}

@@ -36,12 +36,41 @@ class Solution {
             res.add(new ArrayList<Integer>(list));
             return;
         }
+		// 这样的条件更节省时间一点点
         for(int i = idx; i < candidates.length && target >= candidates[i]; i++) {
             if( i > idx && candidates[i] == candidates[i-1]) continue;
             // i > idx, 证明它不是起头的那个 前面已经被算过了 他不要被算了！！！！
             list.add(candidates[i]);
             dfs(res, list, target-candidates[i], i+1, candidates);
             list.remove(list.size() - 1);    
+        }
+    }
+}
+
+// Jul 29 2018 review
+// 15ms 35%
+// C(n, n) + C(n, n - 1) + C(n, n - 2) + C(n, n - 3) + .... + C(n, 1) ~= n^n
+class Solution {
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        List<List<Integer>> res = new ArrayList<>();
+        Arrays.sort(candidates);
+        helper(0,target,res,candidates,new ArrayList<Integer>(),0);
+        return res;
+    }
+    public void helper(int sum, int target, List<List<Integer>> res, int[] candidates, List<Integer> cur, int i){
+        if(sum == target){
+			// 记得一定要new 一个arraylist！！不能直接放进去，否则最后都会被remove掉然后都变成空！！！
+            res.add(new ArrayList<>(cur));
+        } else if (sum < target) {
+			
+            for(int j = i; j < candidates.length; j++) {
+                if(j > i && candidates[j] == candidates[j-1]) continue;
+                cur.add(candidates[j]);
+                helper(sum+candidates[j], target, res, candidates, cur, j+1);
+				
+				// 直接放int 的话 它会认为是指index！！！
+                cur.remove((Integer)candidates[j]);
+            }
         }
     }
 }
