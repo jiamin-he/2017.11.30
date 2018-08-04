@@ -43,3 +43,31 @@ class Solution {
         return new String(sc);
     }
 }
+
+// July 22nd 2018
+// 3ms 100%
+class Solution {
+    public String reverseStr(String s, int k) {
+        int start = 0;
+        char[] sc = s.toCharArray();
+        while(start < s.length()) {
+            if(s.length()-start < k) {
+                reverse(sc, start, sc.length-1);
+            } else {
+                reverse(sc, start, start+k-1);
+            }
+            start += 2*k;
+        }
+        return new String(sc);
+    }
+    
+    public void reverse(char[] s, int start, int end) {
+        while(start < end ) {
+            char temp = s[start];
+            s[start] = s[end];
+            s[end] = temp;
+            start++;
+            end--;
+        }
+    }
+}

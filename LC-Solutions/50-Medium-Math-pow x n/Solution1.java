@@ -1,6 +1,6 @@
 /*
  Author:     Jiamin, hejiamin1995@gmail.com
- Date:       Jan 09, 2017
+ Date:       Jul 21st, 2017
  Problem:    Pow(x, n)
  Difficulty: medium
  Notes:

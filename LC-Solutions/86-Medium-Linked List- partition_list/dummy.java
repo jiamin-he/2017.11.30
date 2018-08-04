@@ -72,3 +72,36 @@ class Solution {
         return dummyL.next;
     }
 }
+
+
+// July 21st 2018 review
+// 0ms 100%
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public ListNode partition(ListNode head, int x) {
+        ListNode dummylt = new ListNode(-1);
+        ListNode dummygt = new ListNode(-1);
+        ListNode dummygt2 = dummygt, dummylt2 = dummylt;
+        
+        while(head != null) {
+            if(head.val < x) {
+                dummylt.next = head;
+                dummylt = head;
+            } else {
+                dummygt.next = head;
+                dummygt = head;
+            }
+            head = head.next;
+        }
+        dummygt.next = null;
+        dummylt.next = dummygt2.next;
+        return dummylt2.next;
+    }
+}
