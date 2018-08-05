@@ -99,3 +99,38 @@ class Solution {
         return sb.toString();
     }
 }
+
+// Aug 4th 2018 review
+// 15ms 98%
+class Solution {
+    public String multiply(String num1, String num2) {
+        if(num1 == null || num2 == null || num1.length() < 1 || num2.length() < 1) return null;
+        if(num1.equals("0") || num2.equals("0")) return "0";
+        char[] sc1 = num1.toCharArray(), sc2 = num2.toCharArray();
+        int len = sc1.length+sc2.length-1;
+        int[] res = new int[len+1];
+        for(int i = sc1.length-1; i >= 0; i--) {
+            for( int j  =sc2.length-1 ; j >= 0; j--) {
+                int temp= (sc1[i]-'0') * (sc2[j]-'0');
+
+                // 这三行好重要啊！！！我总是写错 之前写成
+                // res[i+j] += temp/10;
+                // res[i+j+1] += temp%10;
+                // 然后一直算不对！！！！
+                // 想想清楚这三条式子究竟是怎么写出来的！！！
+
+                temp += res[i+j+1];
+                res[i+j] += temp/10;
+                res[i+j+1] = temp%10;
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        if(res[0] != 0) {
+            sb.append(res[0]);
+        } 
+        for( int i = 1; i < res.length; i++) {
+            sb.append(res[i]);
+        }
+        return sb.toString();
+    }
+}

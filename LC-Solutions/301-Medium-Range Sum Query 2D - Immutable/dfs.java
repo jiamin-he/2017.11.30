@@ -28,31 +28,43 @@ You may assume that row1 ≤ row2 and col1 ≤ col2.
 
 */
 
-// 把 n*n 变大了一点 （n+1)*(n+1) 就可以少写很多的if语句 少控制很多index越界的情况
+// 78ms 73%
 // initialize O(n^2)
 // getSum O(1)
 class NumMatrix {
-    int row;
-    int col;
+    
     int[][] valMatrix;
     int[][] sumMatrix;
 
     public NumMatrix(int[][] matrix) {
         if(matrix.length < 1 || matrix[0].length < 1) return;
-        row = matrix.length;
-        col = matrix[0].length;
-        valMatrix = new int[row][col];
-        sumMatrix = new int[row+1][col+1];
-        for(int i = 1; i < row+1; i++) {
-            for(int j = 1; j < col+1; j++) {
-                valMatrix[i-1][j-1] = matrix[i-1][j-1];
-                sumMatrix[i][j] = sumMatrix[i-1][j] + sumMatrix[i][j-1] - sumMatrix[i-1][j-1] + matrix[i-1][j-1];
+        int m = matrix.length, n = matrix[0].length;
+        valMatrix = new int[m][n];
+        sumMatrix = new int[m][n];
+        for(int i = 0; i < matrix.length; i++) {
+            for(int j = 0; j < matrix[0].length; j++) {
+                valMatrix[i][j] = matrix[i][j];
+                if(i >= 1 && j>= 1) 
+                    sumMatrix[i][j] = sumMatrix[i-1][j] + sumMatrix[i][j-1] - sumMatrix[i-1][j-1] + matrix[i][j];
+                else if (i>=1) 
+                    sumMatrix[i][j] = sumMatrix[i-1][j] + matrix[i][j];
+                else if(j>=1)
+                    sumMatrix[i][j] = sumMatrix[i][j-1] + matrix[i][j];
+                else 
+                    sumMatrix[i][j] = matrix[i][j];
             }
         }
     }
     
     public int sumRegion(int row1, int col1, int row2, int col2) {
-        return sumMatrix[row2+1][col2+1] - sumMatrix[row2+1][col1] - sumMatrix[row1][col2+1] + sumMatrix[row1][col1];
+        if(col1 >=1 && row1 >= 1)
+            return sumMatrix[row2][col2] - sumMatrix[row2][col1-1] - sumMatrix[row1-1][col2] + sumMatrix[row1-1][col1-1];
+        else if (col1>=1)
+            return sumMatrix[row2][col2] - sumMatrix[row2][col1-1];
+        else if (row1 >= 1)
+            return sumMatrix[row2][col2] - sumMatrix[row1-1][col2];
+        else 
+            return sumMatrix[row2][col2];
     }
 }
 
