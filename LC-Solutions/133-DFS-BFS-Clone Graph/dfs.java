@@ -29,7 +29,7 @@ Visually, the graph looks like the following:
 
 */
 
-
+// 3ms 98%
 public class Solution {
     private HashMap<Integer, UndirectedGraphNode> map = new HashMap<>();
     public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {

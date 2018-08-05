@@ -51,3 +51,37 @@ class Solution {
         return res;
     }
 }
+
+// Aug 2nd 2018, review
+// 6ms 81%
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public List<Double> averageOfLevels(TreeNode root) {
+        List<Double> list = new ArrayList<>();
+        Queue<TreeNode> q = new LinkedList<>();
+        if(root == null) return list;
+        q.offer(root);
+        int size = q.size();
+        while(!q.isEmpty()){
+            Double sum = 0.0;
+            for( int i = 0; i < size; i++) {
+                TreeNode temp = q.poll();
+                sum += temp.val;
+                if(temp.left != null) q.offer(temp.left);
+                if(temp.right != null) q.offer(temp.right);
+            }
+            Double res = sum/size;
+            list.add(res);
+            size = q.size();
+        }
+        return list;
+    }
+}

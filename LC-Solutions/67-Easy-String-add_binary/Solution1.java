@@ -64,15 +64,45 @@ class Solution {
         for(int i = a.length -1, j = b.length -1; i >= 0; i--,j--) {
             int sum = carry;
             if(i >= 0) {
+				//记得-‘0’
                 sum += a[i] - '0';
             }
             if(j >= 0) {
                 sum += b[j] - '0';
             }
             carry = sum / 2;
+			// 下面这一句很容易错！！！注意细心！！！要convert 而且后面要加括号 而且要+'0'
             a[i] = (char)(sum%2 + '0');
         }
         if(carry == 0) return new String(a);
         else return "1"+new String(a);
+    }
+}
+
+
+// Aug 2nd 2018 review 
+// 1ms 100%
+class Solution {
+    public String addBinary(String a, String b) {
+        if(a.length() > b.length()) {
+            return helper(a.toCharArray(), b.toCharArray());
+        }
+        return helper(b.toCharArray(), a.toCharArray());
+    }
+    public String helper(char[] ac, char[] bc) {
+        int carry = 0;
+        for(int i = ac.length-1, j = bc.length-1; i >= 0 || j >= 0; i--,j--) {
+            int sum = carry;
+            if(i >= 0) {
+                sum += ac[i]-'0';
+            }
+            if(j >= 0) {
+                sum += bc[j]-'0';
+            }
+            carry = sum/2;
+            ac[i] = (char) (sum%2 +'0');
+        }
+        if(carry == 0) return new String(ac);
+        return "1"+new String(ac);
     }
 }

@@ -119,3 +119,49 @@ class Solution {
         return rst;
     }
 }
+
+
+// 2ms 98%
+// no need to set a hashmap to store the mapping of the integer(index) and the corresponding arraylist.
+// only need to record the offset.
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public List<List<Integer>> verticalOrder(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<>();
+        Queue<TreeNode> q = new LinkedList<>();
+        Queue<Integer> indices = new LinkedList<>();
+        int offset = 0;
+        if(root == null) return res;
+        res.add(new ArrayList<Integer>());
+        q.offer(root);
+        indices.offer(0);
+        while(!q.isEmpty()) {
+            TreeNode temp = q.poll();
+            int index = indices.poll();
+            if((index+offset) < 0) {
+                res.add(0, new ArrayList<Integer>());
+                offset++;
+            } else if ((index+offset) >= res.size()) {
+                res.add(new ArrayList<Integer>());
+            }
+            res.get(index+offset).add(temp.val);
+            if(temp.left != null) {
+                q.offer(temp.left);
+                indices.offer(index-1);
+            }
+            if(temp.right != null) {
+                q.offer(temp.right);
+                indices.offer(index+1);
+            }
+        }
+        return res;
+    }
+}
