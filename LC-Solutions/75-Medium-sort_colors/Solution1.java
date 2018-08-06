@@ -59,3 +59,22 @@ class Solution {
         nums[y] = temp;
     }
 }
+
+
+// Aug 5 2018 review
+// 0ms 100%
+class Solution {
+    public void sortColors(int[] A) {
+        int n=A.length, second=n-1, zero=0;
+        for (int i=0; i<=second; i++) {
+            while (A[i]==2 && i<second) swap(i, second--,A);
+            while (A[i]==0 && i>zero) swap(i, zero++, A);
+        }
+    }
+    
+    public void swap(int x, int y, int[] nums) {
+        int temp = nums[x];
+        nums[x] = nums[y];
+        nums[y] = temp;
+    }
+}
