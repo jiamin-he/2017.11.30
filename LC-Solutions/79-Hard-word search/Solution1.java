@@ -114,3 +114,39 @@ public class Solution {
         return false;
     }
 }
+
+// Aug 19 2018 review
+// 36ms 13%
+class Solution {
+    public boolean exist(char[][] board, String word) {
+        if(board.length < 1 || board[0].length < 1) return false;
+        boolean[][] visited = new boolean[board.length][board[0].length];
+        for(int i = 0; i < board.length; i++) {
+            for(int j = 0; j < board[0].length; j++) {
+                if(board[i][j] == word.charAt(0)) {
+                    visited[i][j] = true;
+                    if(helper(board, word, visited, 1, i, j))
+                        return true;
+                    visited[i][j] = false;
+                }
+            }
+        }
+        return false;
+    }
+    
+    public boolean helper(char[][] board, String word, boolean[][] visited, int pos, int row, int col ) {
+        if(pos >= word.length()) return true;
+        int[][] move = new int[][] {{-1,0},{1,0},{0,1},{0,-1}};
+        for(int i = 0; i < move.length; i++ ) {
+            int newRow = row+move[i][0], newCol = col+move[i][1];
+            if(newRow >= 0 && newRow < board.length && newCol >= 0 && newCol < board[0].length 
+               && !visited[newRow][newCol] && board[newRow][newCol] == word.charAt(pos)) {
+                visited[newRow][newCol] = true;
+                if(helper(board, word, visited, pos+1, newRow, newCol))
+                    return true;
+                visited[newRow][newCol] = false;
+            }
+        }
+        return false;
+    }
+}
