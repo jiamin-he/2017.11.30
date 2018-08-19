@@ -23,7 +23,7 @@ Your solution should be in logarithmic complexity.
 
 // O(log n)
 
-// 0ms 26%
+// 3ms 100%
 class Solution {
     public int findPeakElement(int[] nums) {
         int left = 0, right = nums.length -1;
