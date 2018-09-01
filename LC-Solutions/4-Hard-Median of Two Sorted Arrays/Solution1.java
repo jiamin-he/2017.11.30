@@ -24,6 +24,8 @@ nums2 = [3, 4]
 
 The median is (2 + 3)/2 = 2.5
 */
+
+// From Leetcode Discuss
 class Solution {
     public double findMedianSortedArrays(int[] A, int[] B) {
         int m = A.length;
@@ -58,5 +60,54 @@ class Solution {
             }
         }
         return 0.0;
+    }
+}
+
+
+// Aug 25 2018 mine
+// 68ms 7%
+class Solution {
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        double res;
+        if(nums1.length <= nums2.length) {
+            res = helper(nums1,nums2);
+        } else {
+            res = helper(nums2,nums1);
+        }
+        return res;
+    }
+    
+    public double helper(int[] nums1, int[] nums2) {
+        int m = nums1.length, n = nums2.length;
+        int left = -1, right = m-1;
+        double res = 0.0;
+        if(m == 0 && n == 0) return res;
+        else if(m == 0) {
+            if(n%2 == 0) {
+                res = (nums2[n/2-1]+nums2[n/2])/2.0;
+            } else {
+                res = nums2[n/2];
+            }
+            return res;
+        }
+        while(left <= right) {
+            int i = left + (right-left)/2;
+            int j = (m+n)/2-i-2;
+            if(i!=m-1 && nums2[j] > nums1[i+1]) {
+                left = i+1;
+            } else if(i!=-1 && nums2[j+1] < nums1[i]) {
+                right = i;
+            } else {
+                int maxLeft = (i == -1? nums2[j] : (j == -1? nums1[i]:Math.max(nums1[i], nums2[j])));
+                int minRight = (i == m-1? nums2[j+1]: (j==n-1? nums1[i+1] :Math.min(nums1[i+1], nums2[j+1])));
+                if((m+n)%2 == 0) {
+                    res = (maxLeft + minRight)/2.0;
+                } else {
+                    res = minRight;
+                }
+                return res;
+            }
+        }
+        return res;
     }
 }

@@ -24,7 +24,7 @@ class Solution {
             int cur = nums[i];
             if(cur <= record[0]){
                 record[0] = cur;
-            }else if(crt > record[len - 1]){
+            }else if(cur > record[len - 1]){
                 record[len] = cur;
                 len++;
             }else{

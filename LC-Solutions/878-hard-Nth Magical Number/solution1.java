@@ -55,3 +55,90 @@ class Solution {
         return list.get(N-1)%1000000007;
     }
 }
+
+// TLE
+class Solution {
+    public int nthMagicalNumber(int N, int A, int B) {
+        int M = 1000000007;
+        List<Integer> list = new ArrayList<>();
+        int copyA = A, copyB = B;
+        if(A==B || A%B == 0 || B%A==0){
+            A = Math.min(A,B);
+            long temp = ((long)(N%M)*(A%M))%M;
+            System.out.println(temp);
+            return (int)temp;
+        } 
+        while(list.size() < N) {
+            while(copyA < copyB) {
+                if(!list.contains(copyA))
+                    list.add(copyA);
+                copyA += A;
+            }
+            while(copyB <= copyA) {
+                if(!list.contains(copyB))
+                    list.add(copyB);
+                copyB += B;
+            }
+        }
+        return list.get(N-1)%M;
+    }
+}
+
+// if counting one at each will TLE
+// then we should consider counting M at each  (L: least common multiple)
+// how?
+// https://leetcode.com/problems/nth-magical-number/solution/
+class Solution {
+    public int nthMagicalNumber(int N, int A, int B) {
+        int MOD = 1_000_000_007;
+        int L = A / gcd(A, B) * B;
+        int M = L / A + L / B - 1;
+        int q = N / M, r = N % M;
+
+        long ans = (long) q * L % MOD;
+        if (r == 0)
+            return (int) ans;
+
+        int[] heads = new int[]{A, B};
+        for (int i = 0; i < r - 1; ++i) {
+            if (heads[0] <= heads[1])
+                heads[0] += A;
+            else
+                heads[1] += B;
+        }
+
+        ans += Math.min(heads[0], heads[1]);
+        return (int) (ans % MOD);
+    }
+
+    public int gcd(int x, int y) {
+        if (x == 0) return y;
+        return gcd(y % x, x);
+    }
+}
+
+// binary search
+class Solution {
+    public int nthMagicalNumber(int N, int A, int B) {
+        int MOD = 1_000_000_007;
+        int L = A / gcd(A, B) * B;
+
+        long lo = 0;
+        long hi = (long) 1e15;
+        while (lo < hi) {
+            long mi = lo + (hi - lo) / 2;
+            // If there are not enough magic numbers below mi...
+            if (mi / A + mi / B - mi / L < N)
+                lo = mi + 1;
+            else
+                hi = mi;
+        }
+
+        return (int) (lo % MOD);
+    }
+
+    public int gcd(int x, int y) {
+        if (x == 0) return y;
+        return gcd(y % x, x);
+    }
+}
