@@ -1,100 +1,57 @@
 /*
 Author: Jiamin
-Date: Aug 04, 2018
-Problem: Nested List Weight Sum
+Date: Dec 22, 2017
+Problem: Palindrome Pairs
 
-Given a nested list of integers, return the sum of all integers in the list weighted by their depth.
-
-Each element is either an integer, or a list -- whose elements may also be integers or other lists.
+Given a list of unique words, find all pairs of distinct indices (i, j) in the given list, so that the concatenation of the two words, i.e. words[i] + words[j] is a palindrome.
 
 Example 1:
-
-Input: [[1,1],2,[1,1]]
-Output: 10 
-Explanation: Four 1's at depth 2, one 2 at depth 1.
+Given words = ["bat", "tab", "cat"]
+Return [[0, 1], [1, 0]]
+The palindromes are ["battab", "tabbat"]
 Example 2:
-
-Input: [1,[4,[6]]]
-Output: 27 
-Explanation: One 1 at depth 1, one 4 at depth 2, and one 6 at depth 3; 1 + 4*2 + 6*3 = 27.
+Given words = ["abcd", "dcba", "lls", "s", "sssll"]
+Return [[0, 1], [1, 0], [3, 2], [2, 4]]
+The palindromes are ["dcbaabcd", "abcddcba", "slls", "llssssll"]
 
 */
+ 
+// 170 ms  20%
+// 可能取substring 然后去看是否palindorme 比 直接传 start end 去看是否palindrome快
+// 因为每次都在很长的string里找start 和 end 然后挪 所以会慢！
+// 改后 135ms 60%
 
-// 2ms 100%
-// recursively 
-
-/**
- * // This is the interface that allows for creating nested lists.
- * // You should not implement it, or speculate about its implementation
- * public interface NestedInteger {
- *     // Constructor initializes an empty nested list.
- *     public NestedInteger();
- *
- *     // Constructor initializes a single integer.
- *     public NestedInteger(int value);
- *
- *     // @return true if this NestedInteger holds a single integer, rather than a nested list.
- *     public boolean isInteger();
- *
- *     // @return the single integer that this NestedInteger holds, if it holds a single integer
- *     // Return null if this NestedInteger holds a nested list
- *     public Integer getInteger();
- *
- *     // Set this NestedInteger to hold a single integer.
- *     public void setInteger(int value);
- *
- *     // Set this NestedInteger to hold a nested list and adds a nested integer to it.
- *     public void add(NestedInteger ni);
- *
- *     // @return the nested list that this NestedInteger holds, if it holds a nested list
- *     // Return null if this NestedInteger holds a single integer
- *     public List<NestedInteger> getList();
- * }
- */
+// O(n*k^2)
 class Solution {
-    public int depthSum(List<NestedInteger> nestedList) {
-        return helper(nestedList,1);
-    }
-    public int helper(List<NestedInteger> nestedList, int level) {
-        int sum = 0;
-        for(NestedInteger entry: nestedList){
-            if(entry.isInteger()){
-                sum += entry.getInteger()*level;
-            } else {
-                sum += helper(entry.getList(), level+1);
+    public List<List<Integer>> palindromePairs(String[] words) {
+        List<List<Integer>> res = new ArrayList<>();
+        if(words == null || words.length < 2) return res;
+        Map<String, Integer> map = new HashMap<>();
+        for(int i = 0; i < words.length; i++) map.put(words[i], i);
+        
+        for(int i = 0; i < words.length; i++) {
+            // if there is an empty String, it can still be matched. ["a",""] --> [0,1],[1,0]
+            for (int j = -1; j < words[i].length(); j++) {
+                String cur = words[i];
+                if(isPal(cur,0,j)) {
+                    String pair = new StringBuilder(cur.substring(j+1)).reverse().toString();
+                    // if substring index exceeds, return emtpy string
+                    if(map.containsKey(pair) && map.get(pair) != i) res.add(Arrays.asList(map.get(pair),i));
+                }
+                if(j!=cur.length()-1 && isPal(cur,j+1,cur.length()-1) ) {
+                    String pair = new StringBuilder(cur.substring(0,j+1)).reverse().toString();
+                    if(map.containsKey(pair) && map.get(pair) != i) res.add(Arrays.asList(i,map.get(pair)));
+                }
             }
         }
-        return sum;
+        return res;
     }
-}
-
-
-class Solution {
-    public int depthSum(List<NestedInteger> nestedList) {
-        if(nestedList == null) return 0;
-        Queue<NestedInteger> q = new LinkedList<NestedInteger>();
-        for(NestedInteger list : nestedList){
-            q.offer(list);
+    
+    public boolean isPal (String s, int start, int end) {
+        if(start > end) return true;
+        while(start <= end) {
+            if(s.charAt(start++) != s.charAt(end--)) return false;
         }
-        int depth = 0;
-        int sum = 0;
-        while(!q.isEmpty()) {
-            depth ++;
-            int l = q.size();
-            for (int i = 0; i < l; i++) {
-                NestedInteger curr = q.poll();
-                if(curr.isInteger()) {
-                    sum += curr.getInteger() * depth;
-                }
-                else {
-                    for (NestedInteger nestint : curr.getList()){
-                         q.offer(nestint);
-                    }
-                   
-                }
-                
-            }
-        }
-        return sum;
+        return true;
     }
 }

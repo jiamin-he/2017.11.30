@@ -16,9 +16,8 @@ Example 2:
 Input: "ccaabbb"
 Output: 5
 Explanation: t is "aabbb" which its length is 5.
-
-
 */
+
 // 13ms 61%
 class Solution {
     public int lengthOfLongestSubstringTwoDistinct(String s) {

@@ -33,7 +33,7 @@ The given array will be in the range [1, 20000].
 
 // sliding window
 // 23ms 63% 
-// O N
+// O N*K
 class Solution {
     public int kEmptySlots(int[] flowers, int k) {
         int[] posDate = new int[flowers.length];
