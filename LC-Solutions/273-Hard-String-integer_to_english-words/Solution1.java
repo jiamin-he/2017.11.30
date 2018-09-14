@@ -48,3 +48,55 @@ class Solution {
         return s.trim();
     }
 }
+
+
+// Sep 8th 2018 review
+// 5ms 13%
+class Solution {
+    public String numberToWords(int num) {
+        String[] group = {"", "Thousand", "Million", "Billion", "Trillion"};   
+        String res = "";
+        int index = 0;
+        if(num == 0) res = "Zero";
+        while(num > 0){
+            if (num%1000 != 0)
+                res = helper(num%1000) +" " + group[index] + " " + res;
+            num = num /1000;
+            index++;
+        }
+        return res.trim();
+    }
+    
+    public String helper(int num) {
+        String[] twenties = {"", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten",
+                            "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen",
+                            "Nineteen"};
+        String[] hundred = {"","Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety", "Hundred"};
+        String res;
+        if(num >= 100) {
+            res = twenties[num/100] + " " + hundred[10] +" " + helper(num%100);
+        } else {
+            if(num >= 20) {
+                res = hundred[num/10] + " " + twenties[num%10];
+            } else {
+                res = twenties[num];
+            }
+        }
+        return res.trim();
+    }
+}
+
+// follow up
+// floating number
+If Number is floating even then it is easy
+
+int roundedInt = Math.floar(number)
+String s = aboveSol(roundedInt)
+float = number - roundedInt // It Will give You float after and let assue we want to calculate after 3 decinmal point
+tempRaisedFloat = (int)float*1000
+
+now you have number which you wirte
+
+s=s+ "."+ convertToStirng(tempRaisedFloat )
+	
+	//using stringbuilder will be better

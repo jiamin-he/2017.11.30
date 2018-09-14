@@ -24,7 +24,7 @@ If there are multiple such windows, you are guaranteed that there will always be
 
 // 7ms 73%
 
-// (July 7th 2018 re-run this code again.) 4ms 99%w
+// (July 7th 2018 re-run this code again.) 4ms 99%
 class Solution {
     public String minWindow(String s, String t) {
         if(s == null || s.length() < t.length()) return "";

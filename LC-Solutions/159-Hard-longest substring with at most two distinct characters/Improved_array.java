@@ -43,3 +43,27 @@ class Solution {
         return res==Integer.MIN_VALUE?0:res;
     }
 }
+
+// 2ms 91% Sep 3 2018 review
+class Solution {
+    public int lengthOfLongestSubstringTwoDistinct(String s) {
+        int start = 0, end = 0, size = 0, res = Integer.MIN_VALUE;
+        int[] map = new int[128];
+        char[] sc = s.toCharArray();
+        while(end < sc.length) {
+            if(map[sc[end]] == 0 && size >= 2) {                
+                if(map[sc[start]] == 1) {
+                    size--;
+                }
+                map[sc[start]]--;
+                start++;
+            } else {
+                if(map[sc[end]]==0) size++;
+                map[sc[end]]++;
+                res = Math.max(res, end-start+1);
+                end++;
+            }
+        }
+        return res == Integer.MIN_VALUE? 0:res;
+    }
+}

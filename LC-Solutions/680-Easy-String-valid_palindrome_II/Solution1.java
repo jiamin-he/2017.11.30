@@ -43,3 +43,30 @@ class Solution {
         return true;
     }
 }
+
+// 上面那个方法 我觉得不make sense啊！！
+// 27ms 45%
+class Solution {
+    public boolean validPalindrome(String s) {
+        char[] ca = s.toCharArray();
+        for (int i = 0; i <= ca.length / 2; i++) {
+            if (ca[i] != ca[ca.length - 1 - i]) {
+                return (isPalindrome(ca, i + 1, ca.length - 1 - i) 
+                        || isPalindrome(ca, i, ca.length - 2 - i));
+            }
+        }
+        return true;
+        
+    }
+    private boolean isPalindrome(char[] ca, int left, int right) {
+        while (left <= right) {
+            if (ca[left] != ca[right]) {
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
+    }
+}
+
