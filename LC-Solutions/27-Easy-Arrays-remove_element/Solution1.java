@@ -29,3 +29,18 @@ class Solution {
         return ret;
     }
 }
+
+
+// Jun 24 2018 review
+class Solution {
+    public int removeElement(int[] nums, int val) {
+        if (nums.length < 0) return 0;
+        int end = 0;
+        for(int i = 0; i < nums.length; i++) {
+            if(nums[i] != val) {
+                nums[end++] = nums[i];
+            }
+        }
+        return end;
+    }
+}

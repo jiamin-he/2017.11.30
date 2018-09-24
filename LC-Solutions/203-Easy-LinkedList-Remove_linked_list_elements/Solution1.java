@@ -5,7 +5,7 @@
  Difficulty: Easy
  Notes:
 
-remove all elements from a linked list of inteers that have value val.
+remove all elements from a linked list of integers that have value val.
 
 
 */
@@ -83,9 +83,6 @@ class Solution1 {
         }
 
       }
-
-      
-
       if (head.val == val) {
         return head.next;
       }

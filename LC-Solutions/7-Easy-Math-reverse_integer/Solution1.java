@@ -16,6 +16,7 @@ Input: -123
 Output: -321
 Example 3:
 
+
 Input: 120
 Output: 21
 Note:
@@ -50,6 +51,21 @@ class Solution {
             res =res*10 + x%10;
             if(res%10 != x%10) return 0;
             x/=10;
+        }
+        return res;
+    }
+}
+
+
+// Sep 21st 2018 review
+
+class Solution {
+    public int reverse(int x) {
+        int res = 0;
+        while( x != 0) {
+            res = res * 10 + x % 10;
+            if(res % 10 != x % 10) return 0;
+            x /= 10;
         }
         return res;
     }

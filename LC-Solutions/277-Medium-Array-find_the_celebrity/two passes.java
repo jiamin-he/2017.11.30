@@ -32,3 +32,37 @@ public class Solution extends Relation {
         return candidate;
     }
 }
+
+
+// 9ms 91%
+/* The knows API is defined in the parent class Relation.
+      boolean knows(int a, int b); */
+
+public class Solution extends Relation {
+    public int findCelebrity(int n) {
+        int candidate = 0;
+        for(int i = 1; i < n; i++) {
+            if(knows(candidate, i)) {
+                candidate = i;
+            }
+            // 其实下面这个if是没有用的 因为满足上面的话 也就是 candidate不认识i
+            // 那这些i自然也已经不可能是candiate了
+            if(!knows(i, candidate)) {
+                candidate = i;
+            }
+        }
+        // 这么放是不对的！！！这样是终止for loop的条件啊！！！
+        // for(int i = 0; i < n && i != candidate; i++) {
+        //     if(knows(candidate, i) || !knows(i, candidate)) {
+        //         return -1;
+        //     }
+        // }
+        // 应该这样写
+        for(int i = 0; i < n; i++) {
+            if((i!=candidate && knows(candidate, i)) || (i!= candidate && !knows(i,candidate)))
+                return -1;
+        }
+
+        return candidate;
+    }
+}

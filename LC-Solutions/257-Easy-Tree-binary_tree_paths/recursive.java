@@ -106,3 +106,36 @@ class Solution {
         sb.delete(size,sb.length());
     }
 }
+
+
+// Sep 19th 2018 review
+// 18ms 8%
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public List<String> binaryTreePaths(TreeNode root) {
+        List<String> res = new ArrayList<>();
+        if(root == null) return res;
+        dfs(root, res, "");
+        return res;
+    }
+    
+    public void dfs(TreeNode cur, List<String> res, String current) {
+        if(cur.left == null && cur.right == null) {
+            current += Integer.toString(cur.val);
+            res.add(current);
+        } else {
+            current += Integer.toString(cur.val) +"->";
+            if(cur.left != null) dfs(cur.left, res, current);
+            if(cur.right != null) dfs(cur.right, res, current);
+        }
+        
+    }
+}

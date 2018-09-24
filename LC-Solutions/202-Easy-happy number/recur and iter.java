@@ -59,3 +59,22 @@ class Solution {
         return true;
     }
 }
+
+
+// Sep 23rd 2018 review
+class Solution {
+    public boolean isHappy(int n) {
+        Set<Integer> set = new HashSet<>();
+        int sum = 0;
+        while( sum != 1) {
+            sum = 0;
+            while(n > 0) {
+                sum += (n % 10) * (n % 10);
+                n /= 10;
+            }
+            if(!set.add(sum)) return false;
+            n = sum;
+        }
+        return true;
+    }
+}

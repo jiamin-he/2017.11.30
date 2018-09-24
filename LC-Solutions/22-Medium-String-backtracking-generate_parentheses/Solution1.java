@@ -95,3 +95,30 @@ class Solution {
         }
     }
 }
+
+
+// Sep 23rd 2018 review
+class Solution {
+    public List<String> generateParenthesis(int n) {
+        List<String> res = new ArrayList<>();
+        dfs(n * 2, 0, new StringBuilder(), res);
+        return res;
+    }
+    
+    public void dfs(int len, int count, StringBuilder sb, List<String> res) {
+        if(sb.length() == len) {
+            if(count == 0) {
+                res.add(sb.toString());    
+            }
+        } else if(count >= 0){
+            if(count > 0) {
+                sb.append(")");
+                dfs(len, count - 1, sb, res);
+                sb.deleteCharAt(sb.length() - 1);
+            }
+            sb.append("(");
+            dfs(len, count + 1, sb, res);
+            sb.deleteCharAt(sb.length() - 1);
+        }
+    }
+}

@@ -63,3 +63,18 @@ class Solution1 {
         System.out.println(s1.maxProfit3(price));
     }
 }
+
+
+// Sep 18th 2018 review
+class Solution {
+    public int maxProfit(int[] prices) {
+        if(prices.length < 1) return 0;
+        int prevMax = prices[prices.length-1], profit = 0;
+        for(int i = prices.length -2; i >= 0; i--) {
+            int curProfit = prevMax - prices[i];
+            if(curProfit > profit) profit = curProfit;
+            if(prices[i] > prevMax) prevMax = prices[i];
+        }
+        return profit;
+    }
+}

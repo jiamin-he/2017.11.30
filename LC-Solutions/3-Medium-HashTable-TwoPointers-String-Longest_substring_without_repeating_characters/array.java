@@ -35,3 +35,27 @@ class Solution {
         return res;
     }
 }
+
+
+// Sep 23rd 2018 review
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        if(s.length() < 1) return 0;
+        int[] map = new int[256];
+        Arrays.fill(map, -1);
+        char[] sc = s.toCharArray();
+        int left = 0, res = 0;
+        for(int i = 0; i < sc.length; i++) {
+            char c = sc[i];
+            if(map[c] < 0) {
+                map[c] = i;
+            } else {
+                res = Math.max(i-left, res);
+                left = Math.max(map[c] + 1, left);
+                map[c] = i;
+            }
+        }
+        res = Math.max(sc.length - left, res);
+        return res;
+    }
+}

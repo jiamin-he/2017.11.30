@@ -46,3 +46,31 @@ class Solution {
         return res;
     }
 }
+
+//Sep 21st 2018 review
+class Solution {
+    public int trap(int[] height) {
+        int len = height.length;
+        int[] leftMax = new int[len];
+        int[] rightMax = new int[len];
+        int lMax = Integer.MIN_VALUE;
+        int rMax = Integer.MIN_VALUE;
+        for(int i = 0; i < len; i++) {
+            if(lMax < height[i]) {
+                lMax = height[i];
+            }
+            leftMax[i] = lMax;
+        }
+        for(int i = len - 1; i >= 0; i--) {
+            if(rMax < height[i]) {
+                rMax = height[i];
+            }
+            rightMax[i] = rMax;
+        }
+        int trap = 0;
+        for(int i = 0; i < len; i++) {
+            trap += (Math.min(leftMax[i], rightMax[i]) - height[i]);
+        }
+        return trap;
+    }
+}

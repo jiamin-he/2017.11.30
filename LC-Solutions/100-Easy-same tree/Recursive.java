@@ -41,7 +41,7 @@ Output: false
 */
 
 // 3ms 98%
-// wost O(N)
+// worst O(N)
 /**
  * Definition for a binary tree node.
  * public class TreeNode {

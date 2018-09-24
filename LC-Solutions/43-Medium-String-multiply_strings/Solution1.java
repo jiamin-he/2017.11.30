@@ -134,3 +134,38 @@ class Solution {
         return sb.toString();
     }
 }
+
+
+// Sep 21st 2018 review
+class Solution {
+    public String multiply(String num1, String num2) {
+        if(num1.length() < num2.length()) {
+            return compute(num2, num1);
+        } else {
+            return compute(num1, num2);
+        }
+    }
+    
+    public String compute(String num1, String num2) {
+        if(num2.equals("0") || num1.equals("0")) return "0";
+        char[] nc1 = num1.toCharArray();
+        char[] nc2 = num2.toCharArray();
+        int l1 = num1.length(), l2 = num2.length();
+        int[] res = new int[l1 + l2];
+        for(int i = l2 - 1; i >= 0; i--) {
+            int cur2 = nc2[i] - '0';
+            for(int j = l1 - 1; j >= 0; j--) {
+                int cur1 = nc1[j] - '0';
+                res[i + j + 1] += cur1 * cur2;
+                res[i + j] += res[i + j + 1] / 10;
+                res[i + j + 1] %= 10;
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        int start = res[0] == 0? 1 : 0;
+        for(int i = start; i < res.length; i++) {
+            sb.append(res[i]);
+        }
+        return sb.toString();
+    }
+}

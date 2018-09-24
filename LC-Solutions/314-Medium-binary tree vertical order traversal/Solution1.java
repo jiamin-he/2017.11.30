@@ -100,6 +100,7 @@ class Solution {
                 List<Integer> newCol = new ArrayList<>();
                 newCol.add(curr.val); // new rightmost column
                 rst.add(maxCol - minCol + 1, newCol);
+                //rst.add( newCol);  // 这样就可以啦！
                 maxCol = currCol;
             } else {
                 rst.get(currCol - minCol).add(curr.val);

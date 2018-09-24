@@ -33,6 +33,7 @@ class Solution {
                 break;
             }
         }
+
         int swapPos = index+1;
         for(int i= index+1; i < nums.length; i++){
             if(nums[i] > nums[index]){
@@ -43,6 +44,15 @@ class Solution {
                 break;
             } 
         }
+        // Sep 23rd 2018 review, this part
+        // int swapPos = index+1;
+        // for(int i= nums.length - 1; i > index + 1; i--){
+        //     if(nums[i] > nums[index]){
+        //         swapPos = i;
+        //         break;
+        //     }
+        // }
+
         System.out.println(swapPos);
         if(swap) {
             swap(nums,index,swapPos);

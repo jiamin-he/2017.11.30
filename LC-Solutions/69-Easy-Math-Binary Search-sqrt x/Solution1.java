@@ -22,23 +22,47 @@ Output: 2
 Explanation: The square root of 8 is 2.82842..., and since we want to return an integer, the decimal part will be truncated.
 */
 
-long r = x;
-    while (r*r > x)
-        r = (r + x/r) / 2;
-    return (int) r;
-    
-public int sqrt(int x) {
-    if (x == 0)
-        return 0;
-    int left = 1, right = Integer.MAX_VALUE;
-    while (true) {
-        int mid = left + (right - left)/2;
-        if (mid > x/mid) {
-            right = mid - 1;
-        } else {
-            if (mid + 1 > x/(mid + 1))
-                return mid;
-            left = mid + 1;
+//26ms 50%
+class Solution {
+    public int mySqrt(int x) {
+        if (x == 0)
+            return 0;
+        int left = 1, right = Integer.MAX_VALUE;
+        while (true) {
+            int mid = left + (right - left)/2;
+            if (mid > x/mid) {
+                right = mid - 1;
+            } else {
+                if (mid + 1 > x/(mid + 1))
+                    return mid;
+                left = mid + 1;
+            }
         }
+    }
+}
+
+// 22ms 93%
+class Solution {
+    public int mySqrt(int x) {
+        if(x<=1){
+            return x;
+        }
+        long low = 1;
+        long high = x;
+        while(low+1<high){
+            long mid = low + (high - low)/2;
+            if(mid * mid == x){
+                return (int) mid;
+            }else if( mid * mid < x){
+                low = mid;
+            }else {
+                high = mid;
+            }
+        }
+        if(high * high < x){
+            return (int) high;
+        }else{
+            return (int) low;
+        }      
     }
 }

@@ -74,3 +74,32 @@ class Solution {
         }
     }
 }
+
+
+// Sep 21st 2018 review
+class Solution {
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        Arrays.sort(candidates);
+        List<List<Integer>> res = new ArrayList<>();
+        dfs(candidates, 0, target, res, new ArrayList<>());
+        return res;
+    }
+    
+    public void dfs(int[] candidates, int start, int target, List<List<Integer>> res, List<Integer> cur) {
+        if(target == 0) {
+            res.add(new ArrayList<>(cur));
+        }
+        for(int i = start; i < candidates.length; i++) {
+            if(candidates[i] > target) {
+                break;
+            } else {
+                if(i != start && candidates[i] == candidates[i-1]) {
+                    continue;
+                }
+                cur.add(candidates[i]);
+                dfs(candidates, i + 1, target - candidates[i], res, cur);
+                cur.remove(cur.size() - 1);
+            }
+        }
+    }
+}

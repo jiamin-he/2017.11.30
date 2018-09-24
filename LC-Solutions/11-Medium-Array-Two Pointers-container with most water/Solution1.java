@@ -50,3 +50,20 @@ class Solution {
         return maxArea==Integer.MIN_VALUE? 0:maxArea;
     }
 }
+
+// Sep 21st 2018 review
+class Solution {
+    public int maxArea(int[] height) {
+        int left = 0, right = height.length-1, res = 0;
+        while(left < right) {
+            int minVal = 0, distance = right - left;
+            if(height[left] < height[right]) {
+                minVal = height[left++];
+            } else {
+                minVal = height[right--];
+            }
+            res = Math.max(res, minVal*distance);
+        }
+        return res;
+    }
+}
