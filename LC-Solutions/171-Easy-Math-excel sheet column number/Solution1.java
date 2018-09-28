@@ -1,6 +1,6 @@
 /*
  Author:     Jiamin, hejiamin1995@gmail.com
- Date:       Jan 29, 2017
+ Date:       Jan 29, 2018
  Problem:    excel sheet column number
  Difficulty: Easy
  Notes:
@@ -33,5 +33,17 @@ class Solution {
             digit*= 26;
         }
         return n;
+    }
+}
+
+// Sep 26 2018 review
+class Solution {
+    public int titleToNumber(String s) {
+        char[] sc = s.toCharArray();
+        int res = 0;
+        for(int i = 0; i < sc.length; i++) {
+            res = res * 26 + (sc[i] - 'A' + 1);
+        }
+        return res;
     }
 }

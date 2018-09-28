@@ -90,12 +90,12 @@ class Solution {
 // floating number
 If Number is floating even then it is easy
 
-int roundedInt = Math.floar(number)
+int roundedInt = Math.floor(number)
 String s = aboveSol(roundedInt)
 float = number - roundedInt // It Will give You float after and let assue we want to calculate after 3 decinmal point
 tempRaisedFloat = (int)float*1000
 
-now you have number which you wirte
+now you have number which you write
 
 s=s+ "."+ convertToStirng(tempRaisedFloat )
 	

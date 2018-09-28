@@ -52,3 +52,35 @@ class Solution {
         return minLen == Integer.MAX_VALUE? "":s.substring(minStart, minStart+minLen);
     }
 }
+
+
+// Sep 24 2018 review
+class Solution {
+    public String minWindow(String s, String t) {
+        int[] map = new int[256];
+        char[] sc = s.toCharArray();
+        char[] tc = t.toCharArray();
+        for(int i = 0; i < tc.length; i++) {
+            map[tc[i]]++;
+        }
+        int left = 0, count = tc.length, res = Integer.MAX_VALUE, resLeft = 0;
+        for(int i = 0; i < sc.length; i++) {
+            if(map[sc[i]] > 0) {
+                count--;
+            }
+            map[sc[i]]--;
+            while(count == 0) {
+                if(i - left + 1 < res) {
+                    res = i - left + 1;
+                    resLeft = left;
+                }
+                map[sc[left]]++;
+                if(map[sc[left]] > 0) {
+                    count++;
+                }
+                left++;
+            }
+        }
+        return res == Integer.MAX_VALUE? "" : s.substring(resLeft, resLeft + res);
+    }
+}

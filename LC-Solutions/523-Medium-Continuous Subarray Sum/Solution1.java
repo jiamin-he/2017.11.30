@@ -53,6 +53,8 @@ class Solution {
             sum+= nums[i];
             if(k!= 0) sum %= k;
             if(map.containsKey(sum)) {
+                // 因为题目说了必须是长度大于等于2 的subarray，如果一个数也可以的话 
+                // 那 < i 即可
                 if(map.get(sum) < i-1) return true;
             } else {
                 map.put(sum,i);

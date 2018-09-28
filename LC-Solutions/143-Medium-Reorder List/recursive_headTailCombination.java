@@ -40,6 +40,7 @@ class Solution {
             tail = right;
             right = next;
         }
+        
         // conquer two parts
         ListNode dummy = new ListNode(-1);
         ListNode cur = dummy;

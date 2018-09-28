@@ -45,3 +45,39 @@ class Solution {
         return end;
     }
 }
+
+
+// Sep 25 2018 review
+class Solution {
+    public int findKthLargest(int[] nums, int k) {
+        int index = nums.length - k;
+        int start = 0, end = nums.length - 1;
+        while(start < end) {
+            int pos = quickSelect(nums, start, end);   
+            if(pos < index) {
+                start = pos + 1;
+            } else if( pos > index){
+                end = pos - 1;
+            } else return nums[pos];
+        }
+        return nums[start];
+    }
+    
+    public int quickSelect(int[] nums, int start, int end) {
+        int pivot = start, temp;
+        while(start <= end) {
+            while(start <= end && nums[start] <= nums[pivot]) start++;
+            while(start <= end && nums[end] > nums[pivot]) end--;
+            if(start > end) break;
+            swap(nums, start, end);
+        }
+        swap(nums, pivot, end);
+        return end;
+    }
+    
+    public void swap (int[] nums, int a, int b) {
+        int temp = nums[a];
+        nums[a] = nums[b];
+        nums[b] = temp;
+    }
+}

@@ -106,3 +106,9 @@ class Solution {
         return "1"+new String(ac);
     }
 }
+
+// follow up (k binary number +)
+// divide and conquer (think about LC 23)
+
+// follow up 2 (other base)
+// 16 --> create a map (mapping) (from 0 1 2 A B C to ...)
