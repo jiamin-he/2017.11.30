@@ -1,45 +1,90 @@
 /*
  Author:     Jiamin, hejiamin1995@gmail.com
- Date:       Jan 05, 2017
- Problem:    add digits
+ Date:       Oct 04, 2018
+ Problem:    Valid Word Square
  Difficulty: Easy
  Notes:
 
-Given a non-negative integer num, repeatedly add all its digits until the result has only one digit.
+Given a sequence of words, check whether it forms a valid word square.
 
-For example:
+A sequence of words forms a valid word square if the kth row and column read the exact same string, where 0 ≤ k < max(numRows, numColumns).
 
-Given num = 38, the process is like: 3 + 8 = 11, 1 + 1 = 2. Since 2 has only one digit, return it.
+Note:
 
-Follow up:
-Could you do it without any loop/recursion in O(1) runtime?
+The number of words given is at least 1 and does not exceed 500.
+Word length will be at least 1 and does not exceed 500.
+Each word contains only lowercase English alphabet a-z.
+Example 1:
 
+Input:
+[
+  "abcd",
+  "bnrt",
+  "crmy",
+  "dtye"
+]
+
+Output:
+true
+
+Explanation:
+The first row and first column both read "abcd".
+The second row and second column both read "bnrt".
+The third row and third column both read "crmy".
+The fourth row and fourth column both read "dtye".
+
+Therefore, it is a valid word square.
+Example 2:
+
+Input:
+[
+  "abcd",
+  "bnrt",
+  "crm",
+  "dt"
+]
+
+Output:
+true
+
+Explanation:
+The first row and first column both read "abcd".
+The second row and second column both read "bnrt".
+The third row and third column both read "crm".
+The fourth row and fourth column both read "dt".
+
+Therefore, it is a valid word square.
+Example 3:
+
+Input:
+[
+  "ball",
+  "area",
+  "read",
+  "lady"
+]
+
+Output:
+false
+
+Explanation:
+The third row reads "read" while the third column reads "lead".
+
+Therefore, it is NOT a valid word square.
 
 */
 
-// 3ms 7%
 class Solution {
-    public int addDigits(int num) {
-        if(num < 10) return num;
-        int sum = 0;
-        while(num > 0) {
-            sum += num%10;
-            num/=10;
+    public boolean validWordSquare(List<String> words) {
+        for (int row = 0; row < words.size(); row++) {
+            if (words.get(row).length() > words.size()) return false;
+            for (int col = 0; col < row; col++) {
+                if (col < words.get(row).length() && row < words.get(col).length()) {
+                    if (words.get(row).charAt(col) != words.get(col).charAt(row)) return false;
+                } 
+                else if (col < words.get(row).length() || row < words.get(col).length()) return false;
+            }
         }
-        return addDigits(sum);
-    }
-}
-
-// 2ms
-class Solution {
-    public int addDigits(int num) {
-        return num == 0 ? 0 : (num % 9 == 0 ? 9 : (num % 9));
-    }
-}
-
-// 1ms 
-class Solution {
-    public int addDigits(int num) {
-        return (num - 1) % 9 + 1;
+        return true;
     }
 }

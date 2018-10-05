@@ -50,7 +50,6 @@ class Solution {
 
             return mergeTwoLists(l1, l2);
         }
-8
         return null;
     }
 

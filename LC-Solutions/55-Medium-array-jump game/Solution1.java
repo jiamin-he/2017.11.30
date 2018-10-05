@@ -34,3 +34,15 @@ class Solution {
         return false;
     }
 }
+
+// 7ms 52%
+// Sep 30 2018 review
+class Solution {
+    public boolean canJump(int[] nums) {
+        int start = 0, furthest = 0;
+        for(int i = 0; i <= furthest && i < nums.length; i++) {
+            furthest = Math.max(furthest, nums[i] + i);
+        }
+        return furthest >= nums.length - 1;
+    }
+}

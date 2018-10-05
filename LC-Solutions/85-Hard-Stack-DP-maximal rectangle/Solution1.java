@@ -22,6 +22,7 @@ Output: 6
 
 
 // 9ms 98%
+// O(n^2)
 class Solution {
     public int maximalRectangle(char[][] matrix) {
         if(matrix.length < 1) return 0;

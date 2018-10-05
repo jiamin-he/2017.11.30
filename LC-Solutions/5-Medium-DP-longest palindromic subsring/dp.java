@@ -1,25 +1,20 @@
 /*
  Author:     Jiamin, hejiamin1995@gmail.com
  Date:       Dec 24, 2017
- Problem:    Longest Palindromic Subsequence
+ Problem:    Longest Palindromic Substring
  Difficulty: Medium
  Notes:
-Given a string s, find the longest palindromic subsequence's length in s. You may assume that the maximum length of s is 1000.
+Given a string s, find the longest palindromic substring in s. You may assume that the maximum length of s is 1000.
 
 Example 1:
-Input:
 
-"bbbab"
-Output:
-4
-One possible longest palindromic subsequence is "bbbb".
+Input: "babad"
+Output: "bab"
+Note: "aba" is also a valid answer.
 Example 2:
-Input:
 
-"cbbd"
-Output:
-2
-One possible longest palindromic subsequence is "bb".
+Input: "cbbd"
+Output: "bb"
 */
 
 // 80 ms 30%

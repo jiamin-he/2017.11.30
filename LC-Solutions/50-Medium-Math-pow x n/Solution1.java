@@ -66,3 +66,42 @@ class Solution {
         return (n%2 == 0) ? myPow(x*x, n/2) : x*myPow(x*x, n/2);
     }
 }
+
+// Oct 01 2018 review
+// 12ms 90%
+// T: O(log n)
+class Solution {
+    public double myPow(double x, int n) {
+        if(n == 0) return 1;
+        if(n == 1) return x;
+        if(n == -1) return 1/x;
+        if(n % 2 == 0) {
+            double half = myPow(x, n/2);
+            return half * half;
+        } else {
+            double left = myPow(x, n/2);
+            double right = n>0 ? myPow(x, n/2 + 1): myPow(x, n/2 - 1);
+            return left * right;
+        }
+    }
+}
+
+// recursive (Oct 01 2018 review)
+// 15ms 42%
+class Solution {
+    public double myPow(double x, int n) {
+        if(n == 0) return 1;
+        double res = 1, base = x;
+        while(n != 0) {
+            if(n % 2 != 0) {
+                if(n > 0)
+                    res *= base;
+                else 
+                    res /= base;
+            }
+            base *= base;
+            n /= 2;
+        }
+        return res;
+    }
+}
